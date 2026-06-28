@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "FirstNote",
   description: "The ultimate toolkit for musicians. Play, learn, and orchestrate with FirstNote.",
   manifest: "/manifest.json",
+  icons: {
+    apple: "/icon-192x192.png?v=2",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
