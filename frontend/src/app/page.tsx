@@ -247,6 +247,7 @@ export default function Home() {
             )}
           </AnimatePresence>
         </div>
+      </div>
 
         {/* Dynamic Island Quick Tools */}
         <div 
