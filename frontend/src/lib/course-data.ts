@@ -1,0 +1,704 @@
+export interface CourseChapter {
+  id: string;
+  title: string;
+  topics: string[];
+  interactiveId?: string;
+  content?: string; // Markdown or HTML string for the reading pane
+}
+
+export interface CourseModule {
+  id: string;
+  title: string;
+  description?: string;
+  chapters: CourseChapter[];
+}
+
+export const COURSE_DATA: CourseModule[] = [
+  {
+    id: "module-1",
+    title: "MODULE 1: Musical Foundations",
+    description: "This is where beginners start.",
+    chapters: [
+      {
+        id: "m1-c1",
+        title: "Chapter 1: What Is Music Theory?",
+        topics: [
+          "What is music theory",
+          "Why musicians learn theory",
+          "Theory vs creativity",
+          "How songs are built"
+        ],
+        content: `
+          <p class="text-lg leading-relaxed">Imagine you are cooking a meal from scratch without a recipe. You can randomly throw ingredients into a pot, and sometimes it tastes great by sheer luck. But if you know that salt enhances flavor, acidity balances fat, and sugar caramelizes under heat, you can cook amazing meals consistently and intentionally.</p>
+          
+          <p class="mt-4 text-lg leading-relaxed"><strong>Music theory is exactly like the science of cooking.</strong> It is not a strict set of rules that you <em>have</em> to follow, and it definitely won't kill your creativity. Instead, it is simply a language that explains <em>why</em> certain sounds make us feel certain ways.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Why learn theory?</h3>
+          <ul class="space-y-4 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-emerald-400">Removing Writer's Block:</strong> If you are writing a song and get stuck, theory gives you a map. It tells you exactly which chords will sound beautiful next, saving you hours of guessing.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-blue-400">Communication:</strong> Imagine trying to build a house but you don't know the word "hammer." Theory lets you communicate with other musicians. Instead of saying "play the happy sounding shape starting on the 3rd fret," you simply say "Play a G Major."</li>
+             <li><strong class="text-zinc-900 dark:text-white text-rose-500">Deconstructing Hits:</strong> Ever wonder why a specific movie soundtrack makes you cry, or why a pop song makes you want to dance? Theory lets you look under the hood of your favorite songs and steal their tricks.</li>
+          </ul>
+        `
+      },
+      {
+        id: "m1-c2",
+        title: "Chapter 2: Notes",
+        topics: [
+          "Musical alphabet",
+          "A B C D E F G",
+          "Repeating octaves",
+          "Piano note layout"
+        ],
+        interactiveId: "clickable-keyboard",
+        content: `
+          <p class="text-lg leading-relaxed">Just like the English language is built from an alphabet of 26 letters, the entirety of Western music is built from an alphabet of just 7 letters: <strong class="text-zinc-900 dark:text-white text-2xl tracking-widest block text-center my-6">A B C D E F G</strong></p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Repeating Cycle</h3>
+          <p class="text-lg leading-relaxed">When you count up the musical alphabet and arrive at G, you don't go to H. You loop immediately back to A! This new 'A' sounds exactly the same as the previous one, just higher in pitch.</p>
+          
+          <p class="mt-4 text-lg leading-relaxed">The absolute best place to visualize this is on a piano keyboard. Look at the white keys on the piano widget below. You will see the sequence C, D, E, F, G, A, B repeating infinitely across the board.</p>
+          
+          <div class="bg-blue-500/10 border border-blue-500/20 p-4 rounded-xl mt-6">
+            <h4 class="font-bold text-blue-400 mb-2"> Pro Tip</h4>
+            <p class="text-zinc-600 dark:text-zinc-400">Always find the note <strong>C</strong> first. C is the white key sitting immediately to the left of any group of <strong>two black keys</strong>. Once you find C, you can easily find any other note!</p>
+          </div>
+        `
+      },
+      {
+        id: "m1-c3",
+        title: "Chapter 3: Sharps & Flats",
+        topics: [
+          "♯ and ♭",
+          "Enharmonic notes",
+          "C# = Db"
+        ],
+        interactiveId: "highlight-notes",
+        content: `
+          <p class="text-lg leading-relaxed">Between most of our white piano keys (the natural letters), there are black keys. These are the notes in the "cracks". To name these black keys, we use two symbols:</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Symbols</h3>
+          <ul class="list-disc pl-6 space-y-4 mt-4 text-zinc-600 dark:text-zinc-400 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-rose-400">Sharp (♯):</strong> Means "go up one key to the right". For example, F# is the black key sitting immediately to the right of F.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-blue-400">Flat (♭):</strong> Means "go down one key to the left". For example, Gb is the black key sitting immediately to the left of G.</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Enharmonic Equivalence (Two Names, One Note)</h3>
+          <p class="text-lg leading-relaxed">Because of how this system works, every single black key has two names! Look at the black key directly between C and D. If you move UP from C, it's called <strong>C#</strong>. But if you move DOWN from D, it is called <strong>Db</strong>. They are the exact same button producing the exact same sound. We call this being <em>Enharmonically Equivalent</em>.</p>
+          
+          <div class="bg-purple-500/10 border border-purple-500/20 p-4 rounded-xl mt-6">
+            <p class="text-zinc-600 dark:text-zinc-400">Why do we use two names? It depends on the key signature you are playing in. Think of it like the words "There", "Their", and "They're". They sound identical, but you use a specific one depending on the grammatical context.</p>
+          </div>
+        `
+      },
+      {
+        id: "m1-c4",
+        title: "Chapter 4: Octaves",
+        topics: [
+          "Frequency",
+          "Pitch",
+          "Octave relationships"
+        ],
+        interactiveId: "play-octaves",
+        content: `
+          <p class="text-lg leading-relaxed">As we discussed, the alphabet repeats (A B C D E F G A B C). The distance between one 'A' and the next highest 'A' is called an <strong>Octave</strong>.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Magic Math of Sound</h3>
+          <p class="text-lg leading-relaxed">To understand why octaves exist, we have to look at physics. Sound is simply air vibrating. If a guitar string vibrates exactly 440 times a second (440 Hz), it produces the note A.</p>
+          
+          <p class="mt-4 text-lg leading-relaxed">If you make that string vibrate exactly <em>twice as fast</em> (880 Hz), it produces another A, exactly one octave higher! Because the math is a perfect, clean 2-to-1 ratio, our human brains process both frequencies as the exact same musical letter. They blend together perfectly.</p>
+          
+          <div class="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl mt-6">
+            <h4 class="font-bold text-emerald-400 mb-2"> Listen For It</h4>
+            <p class="text-zinc-600 dark:text-zinc-400">In modern Pop and EDM, producers often layer a bass synth playing the root note (e.g., C2), and a bright lead synth playing the exact same note two octaves higher (C4) to make the song sound massive without adding muddy frequencies.</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-2",
+    title: "MODULE 2: Intervals",
+    description: "Everything comes from intervals. Most apps skip this. Huge mistake.",
+    chapters: [
+      {
+        id: "m2-c1",
+        title: "Chapter 1: Perfect Unison to Major Third",
+        topics: [
+          "Perfect Unison (0)",
+          "Minor Second (1)",
+          "Major Second (2)",
+          "Minor Third (3)",
+          "Major Third (4)"
+        ],
+        interactiveId: "interval-trainer-1",
+        content: `
+          <p class="text-lg leading-relaxed">An <strong>Interval</strong> is the fundamental building block of all music. It is simply the distance between two notes. Think of it like measuring inches on a ruler. If you play a C, and then play the very next key (C#), you just moved 1 "half-step". Everything from chords to scales is built using intervals.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The First Five Steps</h3>
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">Perfect Unison (0 steps):</strong> Playing the exact same note twice. <em>Example: The repeated starting notes of "Jingle Bells" (Jingle bells, jin-gle bells).</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-rose-500 mb-1">Minor Second (1 step):</strong> Incredibly tense, claustrophobic, and creepy. Because the notes are literally as close together as physically possible, they vibrate against each other and create massive dissonance. <em>Example: The infamous "Jaws" shark theme.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">Major Second (2 steps):</strong> A normal, happy whole-step. It feels like taking a confident walk. <em>Example: The first two notes of "Happy Birthday" or "Rudolph the Red-Nosed Reindeer".</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-blue-400 mb-1">Minor Third (3 steps):</strong> The building block of SADNESS. It sounds dark, tragic, and melancholic. This interval alone is what makes a minor chord sound sad. <em>Example: The opening notes of "Greensleeves" or the lullaby "Brahm's Lullaby".</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-orange-400 mb-1">Major Third (4 steps):</strong> The building block of HAPPINESS. It sounds bright, triumphant, and pure. This interval defines major chords. <em>Example: "When the Saints Go Marching In" or the doorbell "Ding-Dong".</em></li>
+          </ul>
+        `
+      },
+      {
+        id: "m2-c2",
+        title: "Chapter 2: Perfect Fourth to Major Sixth",
+        topics: [
+          "Perfect Fourth (5)",
+          "Tritone (6)",
+          "Perfect Fifth (7)",
+          "Minor Sixth (8)",
+          "Major Sixth (9)"
+        ],
+        interactiveId: "interval-trainer-2",
+        content: `
+          <p class="text-lg leading-relaxed">As the distance between the two notes gets wider, the emotions they convey get grander and more complex.</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-teal-400 mb-1">Perfect Fourth (5 steps):</strong> Sounds heroic, open, and suspended. It feels like you are looking out over a vast landscape. <em>Example: The very first two notes of the "Star Wars" main theme or "Amazing Grace".</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-red-600 mb-1">The Tritone (6 steps):</strong> Also known as the "Devil's Interval" or "Diminished Fifth". It is violently ugly, unstable, and tense. In the Middle Ages, monks were actually banned from singing it! It demands to be resolved. <em>Example: The theme song for "The Simpsons" (The-Simp...) or Jimi Hendrix's "Purple Haze".</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-emerald-400 mb-1">Perfect Fifth (7 steps):</strong> The most stable, solid, and powerful interval in all of music (besides the octave). Rock musicians love this so much they call it the "Power Chord". It sounds victorious. <em>Example: The opening to "Star Wars" (after the 4th) or the Superman Theme.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-indigo-400 mb-1">Minor Sixth (8 steps):</strong> Very romantic, emotional, and heartbreaking. It pulls heavily on the heartstrings. <em>Example: The love theme from "Romeo and Juliet" or "In My Life" by The Beatles.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-pink-400 mb-1">Major Sixth (9 steps):</strong> Warm, nostalgic, and sweet. It sounds like a big comforting hug or a childhood memory. <em>Example: The NBC Chimes ("N-B-C") or "My Bonnie Lies Over the Ocean".</em></li>
+          </ul>
+        `
+      },
+      {
+        id: "m2-c3",
+        title: "Chapter 3: Sevenths and Octaves",
+        topics: [
+          "Minor Seventh (10)",
+          "Major Seventh (11)",
+          "Octave (12)"
+        ],
+        interactiveId: "interval-trainer-3",
+        content: `
+          <p class="text-lg leading-relaxed">These intervals are huge physical stretches across the keyboard. Because the notes are so far apart, they create a feeling of floating, flying, or intense longing to return home.</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-cyan-400 mb-1">Minor Seventh (10 steps):</strong> The undeniable sound of Blues and Funk. It sounds cool, edgy, and slightly unresolved. <em>Example: The disco anthem "Le Freak" by Chic or the original "Star Trek" theme.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">Major Seventh (11 steps):</strong> Dreamy, cloudy, and intensely romantic. Because it is only exactly one half-step away from the Octave, it feels like it is desperately reaching for the finish line. <em>Example: A-ha's "Take On Me" (the high "In a day or TWOOO").</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-zinc-900 dark:text-white mb-1">Octave (12 steps):</strong> We have arrived back where we started! The exact same note, just much higher. It provides total peace, resolution, and closure. <em>Example: "Somewhere Over the Rainbow" (Some-where...).</em></li>
+          </ul>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-3",
+    title: "MODULE 3: Scales",
+    chapters: [
+      {
+        id: "m3-c1",
+        title: "Chapter 1: The Major Scale",
+        topics: [
+          "W W H W W W H",
+          "The 'Happy' Scale",
+          "Relative distances"
+        ],
+        interactiveId: "scale-visualizer",
+        content: `
+          <p class="text-lg leading-relaxed">A <strong>Scale</strong> is simply a curated collection of notes chosen from the 12 available notes we have. It's like picking an exact color palette before you start painting.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Formula for Happiness</h3>
+          <p class="text-lg leading-relaxed">The most famous and widely used scale in the world is the <strong>Major Scale</strong>. It sounds bright, triumphant, and resolved. But it isn't magic—it's just a mathematical formula of steps.</p>
+          
+          <p class="mt-4 text-lg leading-relaxed">If you start on ANY key on the piano, and move up using this exact formula of Whole Steps (W) and Half Steps (H), you will perfectly build a Major Scale:</p>
+          
+          <div class="bg-blue-500/10 border border-blue-500/20 p-6 rounded-2xl mt-6 text-center">
+            <strong class="text-zinc-900 dark:text-white text-3xl tracking-[0.5em] block mb-2">W W H W W W H</strong>
+            <p class="text-zinc-600 dark:text-zinc-400">Whole, Whole, Half, Whole, Whole, Whole, Half</p>
+          </div>
+          
+          <p class="mt-6 text-lg leading-relaxed">Because it relies on the <em>distances</em> between notes, rather than the notes themselves, you can transpose this shape to any starting key and it will always sound like a Major Scale.</p>
+        `
+      },
+      {
+        id: "m3-c2",
+        title: "Chapter 2: The Minor Scale",
+        topics: [
+          "W H W W H W W",
+          "The 'Sad' Scale",
+          "Relative Minor"
+        ],
+        interactiveId: "scale-visualizer",
+        content: `
+          <p class="text-lg leading-relaxed">If the Major scale is daytime, the <strong>Minor Scale</strong> is nighttime. It sounds brooding, emotional, sad, or epic.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">A Different Formula</h3>
+          <p class="text-lg leading-relaxed">By slightly shifting where the Half Steps land in our formula, we completely change the emotional quality of the scale. The formula for a Natural Minor scale is:</p>
+          
+          <div class="bg-indigo-500/10 border border-indigo-500/20 p-6 rounded-2xl mt-6 text-center">
+            <strong class="text-zinc-900 dark:text-white text-3xl tracking-[0.5em] block mb-2">W H W W H W W</strong>
+            <p class="text-zinc-600 dark:text-zinc-400">Whole, Half, Whole, Whole, Half, Whole, Whole</p>
+          </div>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Relative Minor Trick</h3>
+          <p class="text-lg leading-relaxed">Here is a massive shortcut: Every Major scale has a hidden "twin" called its Relative Minor. They share the <em>exact same</em> notes, you just start on the 6th note instead of the 1st.</p>
+          <p class="mt-4 text-lg leading-relaxed">For example, C Major is <strong>C, D, E, F, G, A, B</strong>. The 6th note is A. If you play those exact same notes, but start on A (<strong>A, B, C, D, E, F, G</strong>), you are magically playing A Minor! Same ingredients, completely different flavor.</p>
+        `
+      },
+      {
+        id: "m3-c3",
+        title: "Chapter 3: Pentatonic Scales",
+        topics: [
+          "5 Note Scales",
+          "Removing dissonance",
+          "Guitar solos"
+        ],
+        interactiveId: "scale-visualizer",
+        content: `
+          <p class="text-lg leading-relaxed">The word "Penta" means five. The <strong>Pentatonic Scale</strong> is a scale built using only 5 notes instead of the usual 7.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Cheat Code of Music</h3>
+          <p class="text-lg leading-relaxed">Why would we remove notes? In a standard 7-note scale, there are two notes that are only a half-step apart, which creates massive tension and dissonance. If you simply delete those two "danger" notes, you are left with 5 notes that sound incredible no matter what order you play them in.</p>
+          
+          <p class="mt-4 text-lg leading-relaxed">Because it is physically impossible to play a "wrong" sounding note in a pentatonic scale, it is the absolute go-to scale for guitar solos, vocal runs, and basslines.</p>
+          
+          <div class="bg-orange-500/10 border border-orange-500/20 p-4 rounded-xl mt-6">
+            <h4 class="font-bold text-orange-400 mb-2"> Listen For It</h4>
+            <p class="text-zinc-600 dark:text-zinc-400">Listen to the guitar solos in "Stairway to Heaven" or "Hotel California", or the vocal acrobatics of Mariah Carey. 90% of the time, they are flying up and down the Minor Pentatonic scale.</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-4",
+    title: "MODULE 4: Circle Of Fifths",
+    chapters: [
+      {
+        id: "m4-c1",
+        title: "Chapter 1: The Map of Music",
+        topics: [
+          "Key Signatures",
+          "Adding Sharps and Flats",
+          "Finding Relative Minors"
+        ],
+        interactiveId: "circle-interactive",
+        content: `
+          <p class="text-lg leading-relaxed">The <strong>Circle of Fifths</strong> is the ultimate cheat sheet in music theory. It is a visual map that organizes all 12 musical keys so you can instantly see how they relate to each other.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">How It Works</h3>
+          <p class="text-lg leading-relaxed">At the very top (12 o'clock) is <strong>C Major</strong>. Why? Because C Major has 0 sharps and 0 flats. It is the "purest" key, made entirely of white piano keys.</p>
+          
+          <ul class="space-y-4 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-blue-400">Moving Right (Clockwise):</strong> As you move clockwise, you jump up by a Perfect Fifth. With every step, the new key gains exactly <strong>one sharp (♯)</strong>. G Major has 1 sharp, D Major has 2 sharps, A Major has 3, and so on.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-rose-400">Moving Left (Counter-Clockwise):</strong> As you move counter-clockwise, you jump by a Perfect Fourth. With every step, the new key gains exactly <strong>one flat (♭)</strong>. F Major has 1 flat, Bb Major has 2 flats, and so on.</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Inner Ring: Relative Minors</h3>
+          <p class="text-lg leading-relaxed">Remember how every Major key has a hidden twin (the Relative Minor) that shares the exact same notes? The Circle of Fifths puts them directly underneath each other! Underneath C Major is A Minor. They both have 0 sharps and flats. Underneath G Major is E Minor. They both have 1 sharp.</p>
+          
+          <div class="bg-purple-500/10 border border-purple-500/20 p-4 rounded-xl mt-6">
+            <h4 class="font-bold text-purple-400 mb-2"> Songwriting Secret</h4>
+            <p class="text-zinc-600 dark:text-zinc-400">Keys that are physically next to each other on the Circle share almost all of the same notes. If you want to seamlessly transition or "modulate" to a new key in a song, just pick one of its neighbors on the Circle!</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-5",
+    title: "MODULE 5: Chords",
+    chapters: [
+      {
+        id: "m5-c1",
+        title: "Chapter 1: Triads",
+        topics: [
+          "Major Triad (1 3 5)",
+          "Minor Triad (1 ♭3 5)",
+          "Diminished (1 ♭3 ♭5)",
+          "Augmented (1 3 ♯5)"
+        ],
+        interactiveId: "chord-builder",
+        content: `
+          <p class="text-lg leading-relaxed">If an interval is two notes, a <strong>Chord</strong> is three or more notes played simultaneously. The most basic chords are called <strong>Triads</strong> because they contain exactly 3 notes: a Root, a 3rd, and a 5th.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Four Core Flavors</h3>
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-orange-400 mb-1">Major Triad:</strong> Built with a Root, Major 3rd, and Perfect 5th. It sounds overwhelmingly happy, stable, and bright. <em>Example: The booming final chord of almost any Beatles song.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-blue-400 mb-1">Minor Triad:</strong> Built with a Root, Minor 3rd, and Perfect 5th. It sounds sad, moody, and emotional. Lowering the 3rd by just one single half-step changes the entire emotion of the chord.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-rose-500 mb-1">Diminished Triad:</strong> Built with a Root, Minor 3rd, and Flat 5th. It sounds tense, scary, and unstable like a villain is approaching. It demands to be resolved to a happier chord.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">Augmented Triad:</strong> Built with a Root, Major 3rd, and Sharp 5th. It sounds dreamlike, floating, and magical. It literally pulls you upwards.</li>
+          </ul>
+        `
+      },
+      {
+        id: "m5-c2",
+        title: "Chapter 2: 7ths & Extensions",
+        topics: [
+          "Major 7th",
+          "Minor 7th",
+          "Dominant 7th",
+          "Adding 9ths and 11ths"
+        ],
+        interactiveId: "chord-builder",
+        content: `
+          <p class="text-lg leading-relaxed">Triads are great, but they are basic. To add spice, color, and sophistication to your chords, you need to add more notes! The most common note to add is the <strong>7th</strong>.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Adding Color with 7ths</h3>
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-cyan-400 mb-1">Major 7th (maj7):</strong> The sound of Lo-Fi Hip Hop and smooth Jazz. It is incredibly relaxing, lush, and nostalgic. It is built by taking a Major Triad and adding the Major 7th interval on top.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-indigo-400 mb-1">Minor 7th (m7):</strong> Smooth, cool, and melancholic. Used constantly in R&B, Neo-Soul, and Deep House. Built by adding a Minor 7th to a Minor Triad.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-red-500 mb-1">Dominant 7th (7):</strong> Gritty, bluesy, and commanding. This is the foundation of the Blues and Funk. It combines a happy Major Triad with an edgy Minor 7th on top, creating a unique friction.</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Extensions (9s, 11s, 13s)</h3>
+          <p class="text-lg leading-relaxed">Jazz musicians don't stop at the 7th. They keep stacking 3rds on top of the chord, adding the 9th, 11th, and 13th notes of the scale. This turns a simple chord into a massively complex, dense "cloud" of sound. Try clicking the 'maj9' button in the builder below to hear how beautifully dense it is.</p>
+        `
+      },
+      {
+        id: "m5-c3",
+        title: "Chapter 3: Sus Chords",
+        topics: [
+          "Sus2",
+          "Sus4",
+          "Resolutions"
+        ],
+        interactiveId: "chord-builder",
+        content: `
+          <p class="text-lg leading-relaxed">What makes a chord sound Happy (Major) or Sad (Minor)? It's the 3rd! The 3rd is the emotional core of the chord. But what happens if we completely remove it?</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Magic of Suspension</h3>
+          <p class="text-lg leading-relaxed">A <strong>Suspended (Sus) Chord</strong> is a chord where the 3rd has been replaced by either the 2nd (Sus2) or the 4th (Sus4). Because it has no 3rd, the chord is emotionally ambiguous—it's neither happy nor sad! It just sounds open, floating, and unresolved.</p>
+          
+          <div class="bg-blue-500/10 border border-blue-500/20 p-4 rounded-xl mt-6">
+            <h4 class="font-bold text-blue-400 mb-2"> Listen For It</h4>
+            <p class="text-zinc-600 dark:text-zinc-400">The intro to "Pinball Wizard" by The Who is famously built entirely out of aggressively strummed Sus4 chords. It creates massive tension because your ear is desperately waiting for the Sus4 chord to finally "resolve" back to a normal Major triad.</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-6",
+    title: "MODULE 6: Harmony",
+    chapters: [
+      {
+        id: "m6-c1",
+        title: "Chapter 1: Functional Harmony",
+        topics: [
+          "Tonic (I)",
+          "Subdominant (IV)",
+          "Dominant (V)"
+        ],
+        interactiveId: "functional-harmony",
+        content: `
+          <p class="text-lg leading-relaxed">Harmony is the study of how chords interact with each other over time. Just like characters in a movie, chords have specific roles they play within a key. We call this <strong>Functional Harmony</strong>.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Three Main Roles</h3>
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-emerald-400 mb-1">Tonic (I): The Hero.</strong> This is the home base. It sounds completely stable, safe, and resolved. In the key of C Major, the Tonic is the C Major chord. The song almost always starts and ends here.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-blue-400 mb-1">Subdominant (IV): The Journey.</strong> This is the chord that takes you away from home. It sounds wandering, emotional, and exploratory. In C Major, this is the F Major chord.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-rose-500 mb-1">Dominant (V): The Tension.</strong> This is the villain, or the climax of the story. It is highly unstable and anxious. It <em>demands</em> to be resolved back to the Tonic. In C Major, this is the G Major chord.</li>
+          </ul>
+        `
+      },
+      {
+        id: "m6-c2",
+        title: "Chapter 2: Cadences",
+        topics: [
+          "Perfect Cadence (V - I)",
+          "Plagal Cadence (IV - I)",
+          "Half Cadence",
+          "Deceptive Cadence"
+        ],
+        interactiveId: "cadence-player",
+        content: `
+          <p class="text-lg leading-relaxed">A <strong>Cadence</strong> is musical punctuation. It is how a phrase of music ends. Is it a period, a comma, or a question mark?</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Types of Cadences</h3>
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">Perfect Cadence (V - I):</strong> The period at the end of a sentence. The ultimate resolution. It goes from maximum tension (V) straight home (I). <em>Example: The final two chords of classical symphonies.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">Plagal Cadence (IV - I):</strong> The "Amen" cadence. It sounds soft, holy, and final, but less aggressive than a Perfect Cadence. <em>Example: The end of almost every church hymn.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">Half Cadence (Anything - V):</strong> The comma. It ends on the tension chord (V). It forces the listener to keep listening because the thought isn't finished.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">Deceptive Cadence (V - vi):</strong> The plot twist! You build up massive tension with the V chord, and the listener expects you to go home to the I chord. Instead, you fake them out and play a minor chord (vi). It sounds heartbreaking and surprising.</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-7",
+    title: "MODULE 7: Chord Progressions",
+    chapters: [
+      {
+        id: "m7-c1",
+        title: "Chapter 1: Classic Progressions",
+        topics: [
+          "The Pop Punk (I V vi IV)",
+          "The 50s Doo-Wop (I vi IV V)",
+          "The Jazz Standard (ii V I)"
+        ],
+        interactiveId: "classic-progressions",
+        content: `
+          <p class="text-lg leading-relaxed">A chord progression is simply a journey from Home, through Tension, and back to Home. While there are infinite combinations, a few specific progressions have conquered the music industry because they perfectly map to human emotion.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Golden Loops</h3>
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">The Pop Punk (I - V - vi - IV):</strong> The most famous progression in history. It takes you home, gives you tension, drops into a sad minor chord, and then lifts you back up to repeat. <em>Examples: "Let It Be", "Don't Stop Believin'", "Someone Like You".</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">The 50s Doo-Wop (I - vi - IV - V):</strong> The sound of vintage romance. It introduces the sad minor chord much earlier, making it sound nostalgic and sweet. <em>Examples: "Stand By Me", "Unchained Melody".</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">The Jazz Standard (ii - V - I):</strong> The absolute foundation of Jazz. It creates an incredibly smooth, sliding resolution that sounds incredibly sophisticated.</li>
+          </ul>
+        `
+      },
+      {
+        id: "m7-c2",
+        title: "Chapter 2: Genre Progressions",
+        topics: [
+          "Neo-Soul",
+          "The Royal Road (Anime)",
+          "The Creep (Melancholy)"
+        ],
+        interactiveId: "genre-progressions",
+        content: `
+          <p class="text-lg leading-relaxed">Different genres rely on different harmonic "clichés" to get their signature sound. If you use these specific chord loops, your song will instantly sound like it belongs in that genre.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Signature Sounds</h3>
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">The Royal Road (IV - V - iii - vi):</strong> The undisputed king of Anime openings and J-Pop. It is a constantly ascending/descending loop that never actually lands on the Tonic (I) chord. This makes it sound endlessly emotional, striving, and energetic.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-indigo-400 mb-1">Neo Soul Groove:</strong> Built almost entirely out of 9th and 11th extended chords. It sounds incredibly lush, complicated, and effortlessly cool.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-zinc-600 dark:text-zinc-400 mb-1">The Creep (I - III - IV - iv):</strong> Named after the famous Radiohead song. It uses a major III chord (which shouldn't exist in the key) and a minor iv chord to create a devastatingly sad, melancholy pull.</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-8",
+    title: "MODULE 8: Modes",
+    chapters: [
+      {
+        id: "m8-c1",
+        title: "Chapter 1: The 7 Modes",
+        topics: [
+          "Ionian (Major)",
+          "Dorian, Phrygian, Lydian",
+          "Mixolydian, Aeolian (Minor)",
+          "Locrian"
+        ],
+        interactiveId: "mode-switcher",
+        content: `
+          <p class="text-lg leading-relaxed"><strong>Modes</strong> are the secret spices of music theory. If Major is Vanilla and Minor is Chocolate, Modes are flavors like Mint, Strawberry, and Coffee.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">What is a Mode?</h3>
+          <p class="text-lg leading-relaxed">A mode is simply taking the Major scale, but forcing a different note to be the "Home" note. Imagine the C Major scale (C D E F G A B). If you play those exact white keys, but you force the bass player to endlessly drone a <strong>D</strong> in the background, your ear will hear D as the new home. You are now playing the <strong>D Dorian Mode</strong>.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Character Notes</h3>
+          <p class="text-lg leading-relaxed">Every mode has one specific "Character Note" that makes it weird and unique compared to standard Major or Minor:</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-orange-400 mb-1">Dorian (Minor with a raised 6th):</strong> Sounds mystical, funky, and medieval. <em>Example: "Get Lucky" by Daft Punk.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-rose-500 mb-1">Phrygian (Minor with a lowered 2nd):</strong> Sounds incredibly dark, Spanish, or Middle Eastern. <em>Example: "Wherever I May Roam" by Metallica.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-teal-400 mb-1">Lydian (Major with a raised 4th):</strong> Sounds magical, floating, and alien. The raised 4th is the dreamiest note in music. <em>Example: The "Simpsons" theme or "E.T." theme.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-blue-400 mb-1">Mixolydian (Major with a lowered 7th):</strong> Sounds like a classic rock anthem. It's a happy scale but with a bluesy, edgy 7th. <em>Example: "Sweet Home Alabama" or AC/DC riffs.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-zinc-600 dark:text-zinc-400 mb-1">Locrian (Minor with flat 2 and flat 5):</strong> Completely unstable and terrifying. Almost never used in pop music because it has no stable home chord.</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-9",
+    title: "MODULE 9: Songwriting",
+    chapters: [
+      {
+        id: "m9-c1",
+        title: "Chapter 1: Melody & Hooks",
+        topics: [
+          "Melody Writing",
+          "Hook Writing",
+          "Chord-Melody Relationship"
+        ],
+        interactiveId: "melody-sandbox",
+        content: `
+          <p class="text-lg leading-relaxed">A good chord progression sets the emotional stage, but the <strong>Melody</strong> is the actual actor on the stage. It is the sequence of single notes that the lead singer sings or the lead guitar plays. It is the part of the song that gets stuck in your head.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Chord Tones vs. Passing Tones</h3>
+          <p class="text-lg leading-relaxed">How do you write a melody that sounds good over a chord? The secret is understanding the relationship between the melody note and the chord underneath it.</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-blue-400 mb-1">Chord Tones (The Safe Zone):</strong> These are the notes that literally belong to the chord currently playing. If a C Major chord is playing (C, E, G), then singing a C, E, or G will sound 100% stable, peaceful, and "correct." They are your landing pads.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-zinc-600 dark:text-zinc-400 mb-1">Passing Tones (The Spice):</strong> These are notes in the scale that <em>do not</em> belong to the current chord. If you sing a D while a C chord is playing, it creates friction! This friction isn't bad—it's what makes melodies interesting. But you cannot stay on a passing tone forever; it desperately wants to resolve to a Chord Tone.</li>
+          </ul>
+          
+          <p class="mt-6 text-lg leading-relaxed">A great melody is a dance. It steps onto a Passing Tone to create tension, and then steps onto a Chord Tone to relieve it.</p>
+        `
+      },
+      {
+        id: "m9-c2",
+        title: "Chapter 2: Development",
+        topics: [
+          "Voice Leading",
+          "Tension & Release",
+          "Counterpoint",
+          "Motifs"
+        ],
+        interactiveId: "motif-developer",
+        content: `
+          <p class="text-lg leading-relaxed">A melody needs to tell a story. If you just play random chord tones, it will sound like a robot. To make it human, you need to develop a <strong>Motif</strong>.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">What is a Motif?</h3>
+          <p class="text-lg leading-relaxed">A motif is a short, incredibly memorable musical idea. Think of the 4 iconic notes of Beethoven's 5th Symphony (Da-Da-Da-DUUUUM). That is a motif.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">How to Develop It</h3>
+          <p class="text-lg leading-relaxed">Once you write a motif, you can't just repeat it 50 times. You have to develop it:</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">Repetition:</strong> Play it exactly the same to cement it in the listener's brain.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">Transposition:</strong> Move the exact same shape up or down the scale to fit over a new chord. It sounds familiar, but fresh.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-emerald-400 mb-1">Rhythmic Variation:</strong> Keep the notes the same, but change the timing. Turn long notes into short, bouncy notes to add energy.</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-10",
+    title: "MODULE 10: Rhythm",
+    chapters: [
+      {
+        id: "m10-c1",
+        title: "Chapter 1: Time Signatures",
+        topics: [
+          "4/4",
+          "3/4",
+          "6/8",
+          "7/8",
+          "5/4"
+        ],
+        interactiveId: "time-signatures",
+        content: `
+          <p class="text-lg leading-relaxed">Rhythm is how we organize music in time. If pitch is the vertical axis of music, rhythm is the horizontal axis. It is the heartbeat of a song.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Time Signature</h3>
+          <p class="text-lg leading-relaxed">Before a song begins, the musicians need to agree on how to count the pulse. This is called the <strong>Time Signature</strong>. It tells you how many beats are in a single "bar" or "measure".</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block mb-1">4/4 (Common Time):</strong> Used in 95% of pop, rock, EDM, and hip-hop. It is a straight, sturdy <em>1, 2, 3, 4</em>.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">3/4 (Waltz):</strong> A swaying, circular rhythm. It counts <em>1, 2, 3</em>. <em>Example: The "Harry Potter" theme or classical waltzes.</em></li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-orange-400 mb-1">5/4 and 7/8 (Odd Meters):</strong> Used in progressive rock, jazz, and intense film scores. Because the number of beats is odd, it feels like the music is limping or rushing. It creates immense driving tension. <em>Example: The "Mission Impossible" theme is in 5/4.</em></li>
+          </ul>
+        `
+      },
+      {
+        id: "m10-c2",
+        title: "Chapter 2: Values & Syncopation",
+        topics: [
+          "Whole, Half, Quarter",
+          "Syncopation",
+          "Polyrhythms"
+        ],
+        interactiveId: "syncopation-trainer",
+        content: `
+          <p class="text-lg leading-relaxed">Once you establish the heartbeat (like a 4/4 time signature), you have to decide when to actually play your notes.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Playing on the Grid vs. Off the Grid</h3>
+          <p class="text-lg leading-relaxed">If you only play notes directly on the strong beats (1, 2, 3, 4), the music sounds very robotic, rigid, and predictable. This is called playing "straight."</p>
+          
+          <p class="mt-4 text-lg leading-relaxed">The secret to groove, funk, and making people want to dance is <strong>Syncopation</strong>. Syncopation is deliberately placing strong accents on the "weak" beats (the off-beats). By hitting the snare drum slightly earlier or later than the listener expects, you create a momentary tension that forces their body to move to compensate.</p>
+          
+          <div class="bg-rose-500/10 border border-rose-500/20 p-4 rounded-xl mt-6">
+            <h4 class="font-bold text-rose-400 mb-2"> Listen For It</h4>
+            <p class="text-zinc-600 dark:text-zinc-400">Listen to any James Brown or Anderson .Paak song. The bassline and the snare drums are almost entirely syncopated, dodging the strong downbeats to create a massive pocket of groove.</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-11",
+    title: "MODULE 11: Ear Training",
+    chapters: [
+      { 
+        id: "m11-c1", 
+        title: "Chapter 1: The Ultimate Test", 
+        topics: ["Intervals", "Chords", "Scales", "Relative Pitch"], 
+        interactiveId: "ear-trainer",
+        content: `
+          <p class="text-lg leading-relaxed">Music theory is completely useless if you cannot <em>hear</em> it. If you know that a Minor 3rd is "sad," but you can't actually identify a Minor 3rd when you hear it on the radio, then the theory hasn't helped you become a better musician.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Relative Pitch vs. Perfect Pitch</h3>
+          <p class="text-lg leading-relaxed"><strong>Perfect Pitch</strong> is the rare genetic ability to hear a car horn and instantly say "That is an F#". It cannot be learned. <strong>Relative Pitch</strong> is the ability to hear two notes and instantly know the distance (interval) between them. This is the superpower that allows musicians to play songs by ear, and it can absolutely be learned through training.</p>
+          
+          <div class="bg-indigo-500/10 border border-indigo-500/20 p-4 rounded-xl mt-6">
+            <h4 class="font-bold text-indigo-400 mb-2">The Challenge</h4>
+            <p class="text-zinc-600 dark:text-zinc-400">Use the widget below to train your ears. Start with Intervals. Listen to the two notes played, and try to identify the distance between them. Once you master intervals, move on to identifying the emotional qualities of Triads and 7th Chords.</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-12",
+    title: "MODULE 12: Advanced Theory",
+    chapters: [
+      { 
+        id: "m12-c1", 
+        title: "Chapter 1: Borrowed Chords", 
+        topics: ["Modal Interchange", "The Minor IV", "Mario Cadence"], 
+        interactiveId: "borrowed-chords",
+        content: `
+          <p class="text-lg leading-relaxed">If you write a song perfectly in C Major, using only the white keys, it will sound good but eventually predictable. To create massive emotional moments, songwriters briefly "borrow" chords from outside the key signature.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Modal Interchange</h3>
+          <p class="text-lg leading-relaxed">The most common trick is borrowing chords from the parallel minor key. For example, if you are playing in C Major, you can borrow any chord from C Minor! This is called <strong>Modal Interchange</strong>.</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-rose-400 mb-1">The Minor IV:</strong> The most heartbreaking chord in pop music. You play the happy F Major chord, and then flatten its third to turn it into an F Minor chord before resolving home to C. It forces a bittersweet, nostalgic feeling.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-orange-400 mb-1">The Mario Cadence (bVI - bVII - I):</strong> Borrowing the 6th and 7th chords from the minor scale creates a staircase of ascending major chords that sounds incredibly heroic. This is the foundation of epic video game music.</li>
+          </ul>
+        `
+      },
+      { 
+        id: "m12-c2", 
+        title: "Chapter 2: Dominants & Substitutions", 
+        topics: ["Secondary Dominants", "Tritone Substitution", "Chromatic Mediants", "Picardy Third"], 
+        interactiveId: "borrowed-chords",
+        content: `
+          <p class="text-lg leading-relaxed">Once you master borrowing from the parallel minor, you can start manipulating gravity itself. In music, gravity is the V chord pulling to the I chord.</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-blue-400 mb-1">Secondary Dominants:</strong> You can create temporary "gravity" towards any chord by playing its V chord right before it. If you want to land on a Dm chord, you can play an A7 first. A7 is the V of Dm. This makes the Dm feel like a temporary home base.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-emerald-400 mb-1">Tritone Substitution:</strong> A famous jazz trick. Since G7 pulls so strongly to C, you can mathematically prove that Db7 pulls to C just as strongly (because they share the same tritone interval). Swapping G7 for Db7 gives you a buttery smooth, sliding chromatic bassline.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">Chromatic Mediants:</strong> Moving a third away while keeping the same major/minor quality (like C Major to E Major). Because these chords share exactly one note, jumping between them sounds magical, alien, or cinematic—frequently used by John Williams and Danny Elfman.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-yellow-400 mb-1">Picardy Third:</strong> A dramatic ending trick. You write a long, depressing song in a minor key, but the very final chord you play is a Major tonic chord. It creates an incredible feeling of sudden sunlight piercing through the clouds.</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  {
+    id: "module-13",
+    title: "MODULE 13: Genre Theory",
+    chapters: [
+      { 
+        id: "m13-c1", 
+        title: "Chapter 1: The Anatomy of a Genre", 
+        topics: ["Lo-Fi", "Synthwave", "Pop Punk", "Neo-Soul", "EDM", "Reggae", "Trap", "Jazz"], 
+        interactiveId: "genre-deconstructor",
+        content: `
+          <p class="text-lg leading-relaxed">A genre is essentially a specific combination of tempo, drum patterns (rhythm), and chord extensions (harmony). If you change just one of these elements, a heavy metal song can instantly become a jazz standard.</p>
+          
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">The Clichés</h3>
+          <p class="text-lg leading-relaxed">Every genre relies on musical clichés to establish its identity quickly. Master these, and you can write in any style.</p>
+          
+          <ul class="space-y-6 text-zinc-600 dark:text-zinc-400 mt-6 text-lg">
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-purple-400 mb-1">Lo-Fi Hip Hop:</strong> Relies on Major 7 and Minor 7 chords for a dreamy, nostalgic harmony. The drums must be heavily syncopated ("swung") and placed slightly off the grid to feel lazy and relaxed.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-cyan-400 mb-1">Synthwave / Outrun:</strong> Built almost entirely in the Natural Minor scale for a dark, driving feel. The drums rely on a relentless "Four on the Floor" kick pattern to maintain high energy.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-rose-400 mb-1">Pop Punk:</strong> Fast tempos (160+ BPM). Ignores complex harmony in favor of "Power Chords" (root and fifth only) playing the classic I-V-vi-IV progression to create rebellious, raw energy.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-amber-500 mb-1">Neo-Soul:</strong> Takes the complex harmony of Jazz (9ths, 11ths, 13ths) and pairs it with the laid-back, "drunken" swung drum grooves popularized by J Dilla.</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-emerald-400 mb-1">Reggae:</strong> Drops the kick drum on beat 3 (the "One Drop") and plays all the guitar and keyboard chords strictly on the off-beats (the "Skank").</li>
+             <li><strong class="text-zinc-900 dark:text-white text-xl block text-neutral-400 mb-1">Dark Trap:</strong> Minimalist, eerie minor melodies. The entire groove is driven by aggressively fast, rolling hi-hats (32nd notes) and booming, syncopated 808 kick drums.</li>
+          </ul>
+        `
+      }
+    ]
+  }
+];
