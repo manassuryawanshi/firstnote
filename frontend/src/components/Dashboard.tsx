@@ -29,7 +29,8 @@ export default function Dashboard() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/session/upload", {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/api/v1/session/upload`, {
         method: "POST",
         body: formData,
       });
@@ -64,7 +65,8 @@ export default function Dashboard() {
         }).toDestination();
       }
       
-      const response = await fetch(`http://localhost:8000/api/v1/session/download/${taskId}`);
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/api/v1/session/download/${taskId}`);
       if (!response.ok) throw new Error("Failed to fetch audio");
       
       const arrayBuffer = await response.arrayBuffer();
@@ -95,7 +97,8 @@ export default function Dashboard() {
     if (taskId && status !== "Complete" && status !== "Error") {
       interval = setInterval(async () => {
         try {
-          const response = await fetch(`http://localhost:8000/api/v1/session/status/${taskId}`);
+          const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+          const response = await fetch(`${API_URL}/api/v1/session/status/${taskId}`);
           const data = await response.json();
           
           setStatus(data.status);
@@ -283,7 +286,10 @@ export default function Dashboard() {
                   {isPlaying ? <><Square className="w-4 h-4" /> Stop</> : <><Play className="w-4 h-4" /> Play Audio</>}
                 </button>
                 <button 
-                  onClick={() => window.open(`http://localhost:8000/api/v1/session/download/${taskId}`, '_blank')}
+                  onClick={() => {
+                    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+                    window.open(`${API_URL}/api/v1/session/download/${taskId}`, '_blank');
+                  }}
                   className="flex-1 bg-zinc-100 dark:bg-zinc-900 hover:border-black/10 dark:border-white/10 text-zinc-900 dark:text-white border border-zinc-700 py-3 px-4 rounded-xl text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <Download className="w-4 h-4" /> Download

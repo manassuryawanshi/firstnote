@@ -55,7 +55,8 @@ export default function Home() {
     setIsSearching(true);
     const delayDebounceFn = setTimeout(async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/v1/search?q=${encodeURIComponent(searchQuery)}`);
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const res = await fetch(`${API_URL}/api/v1/search?q=${encodeURIComponent(searchQuery)}`);
         if (!res.ok) throw new Error("Backend offline");
         const data = await res.json();
         setSearchResults(data.results || []);
