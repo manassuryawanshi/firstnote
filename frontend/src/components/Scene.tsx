@@ -92,7 +92,7 @@ export function Scene({ status, progress }: { status: string; progress: number }
   return (
     <group rotation={[-Math.PI / 2.05, 0, 0]} position={[0, -4.0, -8]}>
       <mesh ref={meshRef}>
-        <planeGeometry args={[50, 50, 150, 150]} />
+        <planeGeometry args={[50, 50, 64, 64]} />
         <shaderMaterial
           ref={materialRef}
           vertexShader={vertexShader}

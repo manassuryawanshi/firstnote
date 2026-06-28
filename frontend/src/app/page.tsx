@@ -117,7 +117,11 @@ export default function Home() {
       {/* 3D Background */}
       <div className="absolute top-0 inset-x-0 z-0 opacity-50 h-[100vh] pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 100%)' }}>
         {isMounted && (
-          <Canvas camera={{ position: [0, 2, 5], fov: 75 }}>
+          <Canvas 
+            camera={{ position: [0, 2, 5], fov: 75 }}
+            dpr={[1, 1.5]}
+            gl={{ antialias: false, powerPreference: "high-performance" }}
+          >
             <Scene status="Idle" progress={0} />
           </Canvas>
         )}
