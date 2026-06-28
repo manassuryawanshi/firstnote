@@ -46,7 +46,7 @@ export default function Navbar() {
       variants={{ visible: { y: 0 }, hidden: { y: "-150%" } }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className={`fixed top-6 left-0 right-0 flex justify-center px-4 pointer-events-none ${tutorialStep >= 4 ? 'z-[60]' : 'z-50'}`}
+      className={`fixed top-6 left-0 right-0 hidden md:flex justify-center px-4 pointer-events-none ${tutorialStep >= 4 ? 'z-[60]' : 'z-50'}`}
     >
       <motion.nav 
         style={{ backgroundColor: navBackground, borderColor: navBorder, backdropFilter: "blur(40px) saturate(200%)" }}
