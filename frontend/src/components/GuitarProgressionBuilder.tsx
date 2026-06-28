@@ -279,7 +279,7 @@ export default function GuitarProgressionBuilder() {
   };
 
   return (
-    <div className="relative rounded-[3rem] shadow-2xl w-full bg-white dark:bg-black/40 backdrop-blur-3xl shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10">
+    <div className="relative rounded-[3rem] shadow-2xl w-full bg-white dark:bg-black/40 backdrop-blur-md shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10">
       
       {/* Masked Animated Border */}
       <div 

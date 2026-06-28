@@ -249,7 +249,7 @@ export default function GuitarPage() {
                  {/* Card 1: AI Generator (Cols 1-2) */}
                  <motion.div 
                    whileHover={{ scale: 1.02 }} 
-                   className="md:col-span-2 bg-white dark:bg-black/40 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
+                   className="md:col-span-2 bg-white dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
                  >
                     <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
@@ -277,7 +277,7 @@ export default function GuitarPage() {
                  {/* Card 2: Precision Tuner (Cols 3-4) */}
                  <motion.div 
                    whileHover={{ scale: 1.02 }} 
-                   className="md:col-span-2 bg-white dark:bg-black/40 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
+                   className="md:col-span-2 bg-white dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
                  >
                     <div className="absolute inset-0 bg-gradient-to-bl from-fuchsia-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
@@ -307,7 +307,7 @@ export default function GuitarPage() {
                  {/* Card 3: Pedal Sandbox (Cols 1-3) */}
                  <motion.div 
                    whileHover={{ scale: 1.02 }} 
-                   className="md:col-span-3 bg-white dark:bg-black/40 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
+                   className="md:col-span-3 bg-white dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
                  >
                     <div className="absolute inset-0 bg-gradient-to-tr from-fuchsia-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
@@ -338,7 +338,7 @@ export default function GuitarPage() {
                  {/* Card 4: Alternate Tunings (Col 4) */}
                  <motion.div 
                    whileHover={{ scale: 1.02 }} 
-                   className="md:col-span-1 bg-white dark:bg-black/40 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
+                   className="md:col-span-1 bg-white dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[3rem] p-8 overflow-hidden relative group shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]"
                  >
                     <div className="absolute inset-0 bg-gradient-to-t from-fuchsia-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     

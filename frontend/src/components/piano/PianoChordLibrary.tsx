@@ -283,7 +283,7 @@ export default function PianoChordLibrary({ onInjectProgression }: PianoChordLib
   return (
     <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl">
       <div className="absolute w-[4000px] h-[4000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(34,197,94,0.3)_0%,rgba(255,255,255,0.9)_50%,rgba(34,197,94,0.3)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-      <div className="relative bg-[#0a0a0a]/95 rounded-[calc(3rem-2px)] p-8 backdrop-blur-3xl h-full w-full">
+      <div className="relative bg-[#0a0a0a]/95 rounded-[calc(3rem-2px)] p-8 backdrop-blur-md h-full w-full">
         <div className="flex flex-col md:flex-row gap-12 relative z-10">
           <div className="w-full md:w-1/3 space-y-6">
            <div className="space-y-4 bg-white dark:bg-black/40 p-6 rounded-3xl border border-black/10 dark:border-white/10 shadow-inner">
@@ -447,7 +447,7 @@ export default function PianoChordLibrary({ onInjectProgression }: PianoChordLib
                  <motion.div 
                    initial={{ opacity: 0, y: 20 }}
                    animate={{ opacity: 1, y: 0 }}
-                   className="w-full max-w-2xl bg-white dark:bg-black/60 rounded-[2rem] p-8 border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl flex flex-col gap-6 text-left"
+                   className="w-full max-w-2xl bg-white dark:bg-black/60 rounded-[2rem] p-8 border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col gap-6 text-left"
                  >
                     <div className="text-center mb-2 pb-6 border-b border-black/10 dark:border-white/10">
                        <h3 className="text-sm font-black text-green-400 tracking-widest uppercase flex items-center justify-center gap-2">

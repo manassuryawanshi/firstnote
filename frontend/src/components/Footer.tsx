@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
 
           {/* Ultra-clean Frosted Glass Container */}
-          <div className="w-full bg-zinc-900/40 backdrop-blur-3xl border border-white/10 rounded-[40px] p-8 md:p-16 shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden relative">
+          <div className="w-full bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-[40px] p-8 md:p-16 shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden relative">
             
             {/* Very subtle colorful background glow inside the card for depth */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-amber-500/5 to-fuchsia-500/5 blur-[100px] rounded-full pointer-events-none"></div>

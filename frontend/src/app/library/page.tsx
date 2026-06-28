@@ -210,7 +210,7 @@ function CoursePageContent() {
             
             {/* Gradient Border Container */}
             <div className="relative p-[2px] rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_auto]" style={{ animation: 'flow 3s linear infinite' }}>
-               <div className="relative bg-white dark:bg-black/80 backdrop-blur-xl rounded-full flex items-center shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden">
+               <div className="relative bg-white dark:bg-black/80 backdrop-blur-md rounded-full flex items-center shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden">
                   <Search className="absolute left-6 w-6 h-6 text-cyan-400" />
                   <input 
                      type="text" 
@@ -232,7 +232,7 @@ function CoursePageContent() {
                      animate={{ opacity: 1, y: 0 }}
                      exit={{ opacity: 0, y: 10 }}
                      transition={{ duration: 0.2 }}
-                     className="absolute top-full left-0 right-0 mt-4 bg-[#0a0a0a]/95 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden max-h-[400px] overflow-y-auto custom-scrollbar z-50"
+                     className="absolute top-full left-0 right-0 mt-4 bg-[#0a0a0a]/95 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden max-h-[400px] overflow-y-auto custom-scrollbar z-50"
                   >
                      {flatSearchResults.length > 0 ? (
                         <div className="p-2">
@@ -272,7 +272,7 @@ function CoursePageContent() {
       <div className="max-w-[1400px] mx-auto mt-12 relative z-10 flex flex-col lg:flex-row gap-8 h-[800px] lg:h-[calc(100vh-160px)] mb-32">
           
           {/* Sidebar Navigation */}
-          <div className="w-full lg:w-96 shrink-0 bg-white/[0.06] backdrop-blur-[40px] border border-black/10 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_rgba(0,0,0,0.5)] h-full z-20">
+          <div className="w-full lg:w-96 shrink-0 bg-white/[0.06] backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[2rem] overflow-hidden flex flex-col shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_rgba(0,0,0,0.5)] h-full z-20">
              <div className="p-6 border-b border-black/10 dark:border-white/10">
                 <h2 className="text-xl font-bold tracking-tight">Modules</h2>
              </div>
@@ -318,7 +318,7 @@ function CoursePageContent() {
           </div>
 
           {/* Main Reading Pane */}
-          <div className="flex-1 bg-white/[0.06] backdrop-blur-[40px] border border-black/10 dark:border-white/10 rounded-[2rem] overflow-hidden h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_rgba(0,0,0,0.5)] relative">
+          <div className="flex-1 bg-white/[0.06] backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[2rem] overflow-hidden h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_rgba(0,0,0,0.5)] relative">
              <div className="w-full h-full overflow-y-auto p-8 md:p-12 custom-scrollbar">
                 <div className="max-w-3xl mx-auto">
                    {activeModule && (

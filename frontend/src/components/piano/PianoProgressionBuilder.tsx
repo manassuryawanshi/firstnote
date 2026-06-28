@@ -463,7 +463,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
       {/* 1. Quick Generator */}
       <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [transform:translateZ(0)]">
          <div className="absolute w-[4000px] h-[4000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(34,197,94,0.3)_0%,rgba(255,255,255,0.9)_50%,rgba(34,197,94,0.3)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-         <div className="relative bg-[#0a0a0a]/95 backdrop-blur-3xl rounded-[calc(3rem-2px)] p-8 h-full w-full overflow-hidden">
+         <div className="relative bg-[#0a0a0a]/95 backdrop-blur-md rounded-[calc(3rem-2px)] p-8 h-full w-full overflow-hidden">
             <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-500/10 blur-[100px] rounded-full pointer-events-none"></div>
             
@@ -535,7 +535,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
       {/* 2. Sandbox Canvas */}
       <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [transform:translateZ(0)]">
          <div className="absolute w-[4000px] h-[4000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(34,197,94,0.3)_0%,rgba(255,255,255,0.9)_50%,rgba(34,197,94,0.3)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-         <div className="h-[800px] w-full rounded-[calc(3rem-2px)] overflow-hidden bg-[#0a0a0a]/95 backdrop-blur-3xl relative flex flex-col z-10">
+         <div className="h-[800px] w-full rounded-[calc(3rem-2px)] overflow-hidden bg-[#0a0a0a]/95 backdrop-blur-md relative flex flex-col z-10">
         {/* Top Toolbar */}
         <div className="bg-white dark:bg-black/40 border-b border-black/10 dark:border-white/10 p-4 flex items-center justify-between shrink-0 shadow-sm z-10">
            <div className="flex items-center gap-4">
@@ -573,7 +573,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
         </div>
 
         {/* Legend */}
-        <div className="absolute top-24 left-8 z-10 pointer-events-none flex flex-col gap-2 bg-white dark:bg-black/40 p-4 rounded-2xl border border-black/10 dark:border-white/10 backdrop-blur-xl">
+        <div className="absolute top-24 left-8 z-10 pointer-events-none flex flex-col gap-2 bg-white dark:bg-black/40 p-4 rounded-2xl border border-black/10 dark:border-white/10 backdrop-blur-md">
            <div className="flex items-center gap-2 text-xs font-bold text-zinc-600 dark:text-zinc-400"><div className="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div> Major</div>
            <div className="flex items-center gap-2 text-xs font-bold text-zinc-600 dark:text-zinc-400"><div className="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div> Minor</div>
         </div>
@@ -582,7 +582,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
         <div className="flex-1 w-full h-full relative">
            {nodes.length === 0 ? (
              <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-auto bg-white dark:bg-black/20 backdrop-blur-md">
-                <div className="bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-[2rem] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl flex flex-col items-center text-center max-w-md transform transition-all hover:scale-[1.02]">
+                <div className="bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-[2rem] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col items-center text-center max-w-md transform transition-all hover:scale-[1.02]">
                    <div className="w-16 h-16 bg-green-500/10 border border-green-500/20 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
                       <Plus className="w-8 h-8 text-green-400" />
                    </div>

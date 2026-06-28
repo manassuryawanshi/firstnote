@@ -5,8 +5,9 @@ import { Search, Sparkles, Piano, Guitar, BookOpen, ArrowRight, Music, Layers, A
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Scene } from "@/components/Scene";
+import dynamic from "next/dynamic";
+
+const BackgroundScene = dynamic(() => import("@/components/BackgroundScene"), { ssr: false });
 import { useTutorial } from "@/context/TutorialContext";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import TutorialTooltip from "@/components/TutorialTooltip";
@@ -117,13 +118,7 @@ export default function Home() {
       {/* 3D Background */}
       <div className="absolute top-0 inset-x-0 z-0 opacity-50 h-[100vh] pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 100%)' }}>
         {isMounted && (
-          <Canvas 
-            camera={{ position: [0, 2, 5], fov: 75 }}
-            dpr={[1, 1.5]}
-            gl={{ antialias: false, powerPreference: "high-performance" }}
-          >
-            <Scene status="Idle" progress={0} />
-          </Canvas>
+          <BackgroundScene />
         )}
       </div>
 
@@ -157,7 +152,7 @@ export default function Home() {
             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             className={`absolute inset-0 bg-[linear-gradient(to_right,#4f46e5,#f97316,#d946ef,#4f46e5)] bg-[length:200%_auto] rounded-full blur-xl transition-opacity duration-700 ${tutorialStep === 1 ? 'opacity-80 animate-pulse' : 'opacity-40 group-hover:opacity-70'}`}
           ></motion.div>
-          <div className={`relative bg-black/60 backdrop-blur-xl border ${(isSearchFocused || tutorialStep === 1) ? 'border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] z-[60]' : 'border-white/10 shadow-2xl'} rounded-full px-8 py-5 flex items-center gap-4 transition-all duration-500`}>
+          <div className={`relative bg-black/60 backdrop-blur-md border ${(isSearchFocused || tutorialStep === 1) ? 'border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] z-[60]' : 'border-white/10 shadow-2xl'} rounded-full px-8 py-5 flex items-center gap-4 transition-all duration-500`}>
             <Sparkles className={`w-6 h-6 shrink-0 transition-colors duration-500 ${isSearchFocused ? 'text-amber-400 animate-pulse' : 'text-zinc-600'}`} />
             <input 
               type="text" 
@@ -187,7 +182,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.98 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 right-0 mt-4 bg-[#0a0a0a]/95 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden max-h-[450px] overflow-y-auto custom-scrollbar z-50 text-left"
+                className="absolute top-full left-0 right-0 mt-4 bg-[#0a0a0a]/95 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden max-h-[450px] overflow-y-auto custom-scrollbar z-50 text-left"
               >
                 {isSearching ? (
                    <div className="p-8 text-center text-zinc-400">
@@ -253,7 +248,7 @@ export default function Home() {
            <div className="relative group/island">
              <motion.div
                 layout
-                className={`flex items-center overflow-hidden bg-black/60 backdrop-blur-xl border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-3xl p-4 w-[750px] gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
+                className={`flex items-center overflow-hidden bg-black/60 backdrop-blur-md border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-3xl p-4 w-[750px] gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
                 initial={false}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
              >
@@ -815,7 +810,7 @@ export default function Home() {
               <div className="relative w-full max-w-xl mx-auto">
                 <div className="absolute -inset-10 bg-cyan-500/10 blur-[80px] rounded-full"></div>
                 
-                <div className="relative rounded-[2.5rem] bg-black/60 border border-cyan-500/10 backdrop-blur-xl p-8 shadow-[0_0_80px_rgba(6,182,212,0.08)]">
+                <div className="relative rounded-[2.5rem] bg-black/60 border border-cyan-500/10 backdrop-blur-md p-8 shadow-[0_0_80px_rgba(6,182,212,0.08)]">
                   <div className="space-y-1">
                     {isMounted && [
                       { label: "The Keyboard", sub: "Notes, Octaves, Semitones", progress: 100 },

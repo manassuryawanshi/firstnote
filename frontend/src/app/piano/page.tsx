@@ -167,7 +167,7 @@ export default function PianoPage() {
                  {/* Feature 1: Large Box */}
                  <motion.div 
                    whileHover={{ scale: 1.02 }}
-                   className="md:col-span-2 bg-white dark:bg-black/30 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-[3rem] p-10 overflow-hidden relative group flex flex-col justify-center shadow-2xl"
+                   className="md:col-span-2 bg-white dark:bg-black/30 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[3rem] p-10 overflow-hidden relative group flex flex-col justify-center shadow-2xl"
                  >
                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                    <div className="relative z-10 max-w-lg">
@@ -182,7 +182,7 @@ export default function PianoPage() {
                  {/* Feature 2: Tall Box */}
                  <motion.div 
                    whileHover={{ scale: 1.02 }}
-                   className="md:col-span-1 bg-white dark:bg-black/30 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-[3rem] p-10 overflow-hidden relative group flex flex-col shadow-2xl"
+                   className="md:col-span-1 bg-white dark:bg-black/30 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[3rem] p-10 overflow-hidden relative group flex flex-col shadow-2xl"
                  >
                    <div className="absolute inset-0 bg-gradient-to-t from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                    <div className="relative z-10 flex flex-col h-full">
@@ -197,7 +197,7 @@ export default function PianoPage() {
                  {/* Feature 3: Wide Box */}
                  <motion.div 
                    whileHover={{ scale: 1.02 }}
-                   className="md:col-span-3 bg-white dark:bg-black/30 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-[3rem] p-10 overflow-hidden relative group flex flex-col md:flex-row items-center gap-12 shadow-2xl"
+                   className="md:col-span-3 bg-white dark:bg-black/30 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[3rem] p-10 overflow-hidden relative group flex flex-col md:flex-row items-center gap-12 shadow-2xl"
                  >
                    <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                    <div className="relative z-10 max-w-2xl">

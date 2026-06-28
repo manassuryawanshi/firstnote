@@ -48,7 +48,7 @@ export default function TutorialTooltip({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className={`absolute ${positionClasses[position]} normal-case tracking-normal bg-black/80 backdrop-blur-xl border border-amber-500/50 rounded-2xl p-5 shadow-[0_0_30px_rgba(245,158,11,0.3)] flex flex-col gap-4 w-[320px] z-[70] ${className}`}
+        className={`absolute ${positionClasses[position]} normal-case tracking-normal bg-black/80 backdrop-blur-md border border-amber-500/50 rounded-2xl p-5 shadow-[0_0_30px_rgba(245,158,11,0.3)] flex flex-col gap-4 w-[320px] z-[70] ${className}`}
       >
         <div className="flex items-start justify-between gap-3">
            <div className="flex items-center gap-3">
