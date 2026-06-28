@@ -43,6 +43,23 @@ export default function Home() {
   // Command Hub Hover State
   const [isIslandHovered, setIsIslandHovered] = useState(false);
   const [hoveredToolIndex, setHoveredToolIndex] = useState<number | null>(null);
+
+  // Close search and quick tools on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const container = document.getElementById("search-island-container");
+      if (container && !container.contains(e.target as Node)) {
+        setIsIslandHovered(false);
+        setIsSearchFocused(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, []);
   
   const { setTutorialStep, completeTutorial } = useTutorial();
   const [isSearching, setIsSearching] = useState(false);
@@ -125,7 +142,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 w-full text-center pb-[35vh]">
         <TutorialOverlay activeSteps={[1, 2, 3]} />
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] tracking-tighter text-center leading-[0.9] mb-8 px-4 whitespace-nowrap">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] tracking-tighter text-center leading-[0.9] mb-8 px-4 whitespace-normal md:whitespace-nowrap">
           <span className="font-extrabold text-white block mb-0">The ultimate toolkit.</span>
           <div className="flex items-center justify-center">
             <span className="font-extrabold text-white mr-4">for </span>
@@ -147,6 +164,8 @@ export default function Home() {
             position="top"
           />
 
+        <div className="relative z-50 pointer-events-auto" id="search-island-container">
+          {/* Animated Background Glow */}
           <motion.div 
             animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
@@ -428,7 +447,7 @@ export default function Home() {
               <div className="relative w-full max-w-xl mx-auto">
                 <div className="absolute -inset-10 bg-emerald-500/10 blur-[80px] rounded-full"></div>
                 
-                <div className="relative flex justify-center" style={{ perspective: "1000px" }}>
+                <div className="relative flex justify-start md:justify-center overflow-x-auto scrollbar-hide py-4 -my-4 px-4 -mx-4" style={{ perspective: "1000px" }}>
                   {/* White keys */}
                   <div className="flex gap-[3px] relative transform-style-3d">
                     {isMounted && ["C", "D", "E", "F", "G", "A", "B", "C", "D", "E"].map((note, i) => (

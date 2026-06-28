@@ -579,7 +579,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
         </div>
 
         {/* React Flow Canvas */}
-        <div className="flex-1 w-full h-full relative">
+        <div className="flex-1 w-full h-full relative overflow-hidden">
            {nodes.length === 0 ? (
              <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-auto bg-white dark:bg-black/20 backdrop-blur-md">
                 <div className="bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-[2rem] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col items-center text-center max-w-md transform transition-all hover:scale-[1.02]">
