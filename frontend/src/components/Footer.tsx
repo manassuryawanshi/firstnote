@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, BookOpen, Code, Globe, Mail, Twitter, Piano, Layers, Music, Guitar, Sparkles } from "lucide-react";
+import { Activity, BookOpen, Mail, Piano, Layers, Music, Guitar, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
