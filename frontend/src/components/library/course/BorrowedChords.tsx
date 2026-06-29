@@ -207,7 +207,7 @@ export default function BorrowedChords() {
 
                   let bgClass = "bg-white dark:bg-black/50 border border-blue-500/20 text-blue-900/50";
                   if (isActive) {
-                     bgClass = "bg-blue-500 text-zinc-900 dark:text-white scale-105 shadow-[0_0_20px_rgba(244,63,94,0.6)]";
+                     bgClass = "bg-blue-500 text-zinc-900 dark:text-white scale-105 shadow-[0_0_20px_rgba(59,130,246,0.6)]";
                   } else if (isTheBorrowedChord) {
                      bgClass = "bg-white dark:bg-black/50 border-2 border-blue-500/50 text-blue-400";
                   }
@@ -225,7 +225,7 @@ export default function BorrowedChords() {
             <button 
                onClick={() => playProgression("borrowed")}
                disabled={!isLoaded || !!playingProgression}
-               className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all ${!playingProgression && isLoaded ? 'bg-blue-500 text-zinc-900 dark:text-white hover:bg-blue-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]' : 'opacity-50 cursor-not-allowed bg-blue-900/20 text-blue-900/50'}`}
+               className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all ${!playingProgression && isLoaded ? 'bg-blue-500 text-zinc-900 dark:text-white hover:bg-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.4)]' : 'opacity-50 cursor-not-allowed bg-blue-900/20 text-blue-900/50'}`}
             >
                <Play className="w-4 h-4 fill-current" /> Play Borrowed
             </button>

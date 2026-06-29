@@ -274,7 +274,7 @@ export default function GenreDeconstructor() {
 
       <div className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-3xl p-8 flex flex-col items-center">
          
-         <div className="flex flex-nowrap w-full justify-center mb-10 py-6 px-2 gap-2 md:gap-4 overflow-x-auto">
+         <div className="flex flex-nowrap w-full justify-start md:justify-center mb-10 py-6 px-4 gap-2 md:gap-4 overflow-x-auto">
             {activeGenre.chords.map((chord, i) => {
                // The chord is active if currentBeat is between this chord's beat and the next chord's beat
                // Since our chords are equally spaced (every 2 beats roughly), check within [beat, beat+1.9]
@@ -295,7 +295,7 @@ export default function GenreDeconstructor() {
          <button
             onClick={() => isPlaying ? stopPlayback() : startPlayback(activeGenre)}
             disabled={!isLoaded}
-            className={`flex items-center gap-3 px-10 py-4 rounded-full font-bold transition-all text-lg ${isPlaying ? 'bg-blue-500 text-zinc-900 dark:text-white shadow-[0_0_20px_rgba(244,63,94,0.4)] hover:bg-blue-400' : 'bg-white text-black hover:scale-105'}`}
+            className={`flex items-center gap-3 w-full md:w-auto justify-center px-6 md:px-10 py-3 md:py-4 rounded-full font-bold transition-all text-base md:text-lg ${isPlaying ? 'bg-blue-500 text-zinc-900 dark:text-white shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:bg-blue-400' : 'bg-white text-black hover:scale-105'}`}
          >
             {isPlaying ? <Square className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current" />}
             {isPlaying ? `Stop ${activeGenre.name}` : `Play ${activeGenre.name}`}

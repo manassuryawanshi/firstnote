@@ -15,12 +15,6 @@ export default function Footer() {
       {/* MEET THE BUILDER */}
       {isHome && (
         <>
-        <div className="w-full flex justify-center py-12 relative z-20">
-           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-3/4 h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
-           </div>
-           <div className="w-2 h-2 rounded-full bg-black border border-orange-500/30 z-10 shadow-[0_0_10px_rgba(249,115,22,0.2)]"></div>
-        </div>
         <section className="relative w-full bg-black py-32 overflow-hidden">
         
         {/* Colorful Ambient Glows matching Home Screen */}
