@@ -279,7 +279,7 @@ export default function GuitarProgressionBuilder() {
   };
 
   return (
-    <div className="relative rounded-[3rem] shadow-2xl w-full bg-white dark:bg-black/40 backdrop-blur-md shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10">
+    <div className="relative rounded-[3rem] shadow-2xl w-full bg-white dark:bg-black/40 backdrop-blur-md shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10 overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
       
       {/* Masked Animated Border */}
       <div 
@@ -313,7 +313,7 @@ export default function GuitarProgressionBuilder() {
                   <div className="relative">
                     <select 
                       value={qRoot} onChange={e => setQRoot(e.target.value)}
-                      className="w-full bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl py-3 px-4 text-zinc-900 dark:text-white font-bold focus:outline-none focus:border-fuchsia-500 transition-colors hover:border-white/20 cursor-pointer shadow-inner appearance-none text-sm"
+                      className="w-full bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl py-3 pl-4 pr-10 text-zinc-900 dark:text-white font-bold focus:outline-none focus:border-fuchsia-500 transition-colors hover:border-white/20 cursor-pointer shadow-inner appearance-none text-sm"
                     >
                       {KEY_ROOTS.map(r => <option key={r} value={r}>{r}</option>)}
                     </select>
@@ -326,7 +326,7 @@ export default function GuitarProgressionBuilder() {
                <div className="space-y-2 flex-1 min-w-[120px] group">
                   <label className="text-[10px] text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-widest group-hover:text-fuchsia-400 transition-colors">Mood / Style</label>
                   <div className="relative">
-                    <select value={qMood} onChange={(e) => setQMood(e.target.value)} className="w-full bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl py-3 px-4 text-zinc-900 dark:text-white font-bold focus:outline-none focus:border-fuchsia-500 transition-colors hover:border-white/20 cursor-pointer shadow-inner appearance-none text-sm">
+                    <select value={qMood} onChange={(e) => setQMood(e.target.value)} className="w-full bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl py-3 pl-4 pr-10 text-zinc-900 dark:text-white font-bold focus:outline-none focus:border-fuchsia-500 transition-colors hover:border-white/20 cursor-pointer shadow-inner appearance-none text-sm">
                       <option value="happy">Happy</option>
                       <option value="sad">Sad</option>
                       <option value="epic">Epic</option>
@@ -345,7 +345,7 @@ export default function GuitarProgressionBuilder() {
                   <div className="relative">
                     <select 
                       value={qLength} onChange={e => setQLength(parseInt(e.target.value))}
-                      className="w-full bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl py-3 px-4 text-zinc-900 dark:text-white font-bold focus:outline-none focus:border-fuchsia-500 transition-colors hover:border-white/20 cursor-pointer shadow-inner appearance-none text-sm"
+                      className="w-full bg-white dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl py-3 pl-4 pr-10 text-zinc-900 dark:text-white font-bold focus:outline-none focus:border-fuchsia-500 transition-colors hover:border-white/20 cursor-pointer shadow-inner appearance-none text-sm"
                     >
                       {[2, 4, 8, 16].map(l => <option key={l} value={l}>{l} Chords</option>)}
                     </select>

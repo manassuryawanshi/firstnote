@@ -144,7 +144,7 @@ export default function GuitarTuner() {
   }
 
   return (
-    <div className="relative rounded-[3rem] shadow-2xl w-full max-w-4xl mx-auto bg-white dark:bg-black/40 backdrop-blur-md shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10">
+    <div className="relative rounded-[3rem] shadow-2xl w-full max-w-4xl mx-auto bg-white dark:bg-black/40 backdrop-blur-md shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10 overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
       
       {/* Masked Animated Border */}
       <div 

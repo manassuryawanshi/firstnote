@@ -461,7 +461,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
   return (
     <div className="space-y-8">
       {/* 1. Quick Generator */}
-      <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [transform:translateZ(0)]">
+      <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
          <div className="absolute w-[4000px] h-[4000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(34,197,94,0.3)_0%,rgba(255,255,255,0.9)_50%,rgba(34,197,94,0.3)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
          <div className="relative bg-[#0a0a0a]/95 backdrop-blur-md rounded-[calc(3rem-2px)] p-8 h-full w-full overflow-hidden">
             <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
@@ -533,7 +533,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
       </div>
 
       {/* 2. Sandbox Canvas */}
-      <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [transform:translateZ(0)]">
+      <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
          <div className="absolute w-[4000px] h-[4000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(34,197,94,0.3)_0%,rgba(255,255,255,0.9)_50%,rgba(34,197,94,0.3)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
          <div className="h-[800px] w-full rounded-[calc(3rem-2px)] overflow-hidden bg-[#0a0a0a]/95 backdrop-blur-md relative flex flex-col z-10">
         {/* Top Toolbar */}

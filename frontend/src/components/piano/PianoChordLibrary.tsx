@@ -281,7 +281,7 @@ export default function PianoChordLibrary({ onInjectProgression }: PianoChordLib
   const dynamicInsights = getDynamicInsights();
 
   return (
-    <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl">
+    <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
       <div className="absolute w-[4000px] h-[4000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(34,197,94,0.3)_0%,rgba(255,255,255,0.9)_50%,rgba(34,197,94,0.3)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
       <div className="relative bg-[#0a0a0a]/95 rounded-[calc(3rem-2px)] p-8 backdrop-blur-md h-full w-full">
         <div className="flex flex-col md:flex-row gap-12 relative z-10">

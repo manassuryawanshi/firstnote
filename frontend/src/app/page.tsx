@@ -268,7 +268,7 @@ export default function Home() {
            <div className="relative group/island">
              <motion.div
                 layout
-                className={`flex items-center overflow-hidden bg-black/60 backdrop-blur-md border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-3xl p-4 w-[750px] gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
+                className={`flex items-center overflow-hidden bg-black/60 backdrop-blur-md border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-3xl p-4 w-[95vw] md:w-[750px] overflow-x-auto custom-scrollbar gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
                 initial={false}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
              >
