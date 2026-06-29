@@ -288,7 +288,7 @@ export default function Home() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex items-center justify-between w-full gap-2 relative"
+                      className="flex flex-wrap items-center justify-center w-full gap-2 relative"
                    >
                     {[
                       { title: "Piano Sandbox", subtitle: "Interactive progression builder", href: "/piano#sandbox", icon: <Piano className="w-6 h-6 text-emerald-400" />, color: "bg-emerald-500/10 hover:bg-emerald-500/20", borderColor: "border-emerald-500/30", glow: "shadow-[0_0_15px_rgba(16,185,129,0.4)]", isStep3: true },
@@ -302,12 +302,13 @@ export default function Home() {
                          href={tool.href} 
                          onMouseEnter={() => setHoveredToolIndex(i)}
                          onMouseLeave={() => setHoveredToolIndex(null)}
-                         onClick={() => {
+                         onClick={(e) => {
+                            e.stopPropagation();
                             if (tutorialStep > 0) {
                                completeTutorial();
                             }
                          }}
-                         className={`flex-1 flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 ${tool.color} border ${(tutorialStep === 3 && tool.isStep3) ? 'border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)]' : 'border-white/5'} group relative overflow-visible`}
+                         className={`w-[30%] sm:w-auto sm:flex-1 flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 ${tool.color} border ${(tutorialStep === 3 && tool.isStep3) ? 'border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)]' : 'border-white/5'} group relative overflow-visible`}
                       >
                          <AnimatePresence>
                            {hoveredToolIndex === i && (

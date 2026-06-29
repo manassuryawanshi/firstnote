@@ -15,7 +15,7 @@ export default function Footer() {
       {/* MEET THE BUILDER */}
       {isHome && (
         <>
-        <section className="relative w-full bg-black py-32 overflow-hidden">
+        <section className="relative w-full bg-black py-32 overflow-x-clip">
         
         {/* Colorful Ambient Glows matching Home Screen */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-b from-amber-500/10 via-fuchsia-500/5 to-transparent blur-[150px] pointer-events-none"></div>
