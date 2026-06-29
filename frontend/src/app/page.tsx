@@ -255,7 +255,6 @@ export default function Home() {
           className={`relative mt-12 min-h-[6rem] flex justify-center items-start transition-all duration-500 opacity-100 translate-y-0 ${tutorialStep === 2 || tutorialStep === 3 ? 'z-[60]' : 'z-40'}`}
           onMouseEnter={() => setIsIslandHovered(true)}
           onMouseLeave={() => setIsIslandHovered(false)}
-          onClick={() => setIsIslandHovered(!isIslandHovered)}
         >
            <TutorialTooltip 
               step={2}
@@ -748,7 +747,7 @@ export default function Home() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 w-full overflow-hidden mb-32"
+        className="relative z-10 w-full overflow-hidden pb-32"
       >
         {/* Perfect Mathematical Journey Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-50">
