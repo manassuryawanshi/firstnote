@@ -252,9 +252,10 @@ export default function Home() {
         {/* Dynamic Island Quick Tools */}
         <div 
           id="command-hub"
-          className={`relative mt-12 h-24 flex justify-center items-start transition-all duration-500 opacity-100 translate-y-0 ${tutorialStep === 2 || tutorialStep === 3 ? 'z-[60]' : 'z-40'}`}
+          className={`relative mt-12 min-h-[6rem] flex justify-center items-start transition-all duration-500 opacity-100 translate-y-0 ${tutorialStep === 2 || tutorialStep === 3 ? 'z-[60]' : 'z-40'}`}
           onMouseEnter={() => setIsIslandHovered(true)}
           onMouseLeave={() => setIsIslandHovered(false)}
+          onClick={() => setIsIslandHovered(!isIslandHovered)}
         >
            <TutorialTooltip 
               step={2}
@@ -268,7 +269,7 @@ export default function Home() {
            <div className="relative group/island">
              <motion.div
                 layout
-                className={`flex items-center overflow-hidden bg-black/60 backdrop-blur-md border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-3xl p-4 w-[95vw] md:w-[750px] overflow-x-auto custom-scrollbar gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
+                className={`flex flex-wrap justify-center items-center overflow-hidden bg-black/60 backdrop-blur-md border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-3xl p-4 w-[95vw] md:w-[750px] gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
                 initial={false}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
              >
@@ -466,7 +467,7 @@ export default function Home() {
                           delay: getPseudoRandom(i * 11) * 4, 
                           repeatDelay: 1.5 + getPseudoRandom(i * 7) * 2 
                         }}
-                        className="relative w-12 sm:w-14 h-48 sm:h-56 bg-gradient-to-b from-white via-zinc-100 to-zinc-200 rounded-b-lg border border-zinc-300 shadow-[inset_-1px_0_0_rgba(0,0,0,0.1),inset_1px_0_0_rgba(255,255,255,0.8),0_4px_8px_rgba(0,0,0,0.4)]"
+                        className="relative w-9 sm:w-14 h-36 sm:h-56 bg-gradient-to-b from-white via-zinc-100 to-zinc-200 rounded-b-lg border border-zinc-300 shadow-[inset_-1px_0_0_rgba(0,0,0,0.1),inset_1px_0_0_rgba(255,255,255,0.8),0_4px_8px_rgba(0,0,0,0.4)]"
                       >
                         <motion.div 
                           whileInView={{ opacity: [0, 0.8, 0] }}
@@ -505,7 +506,7 @@ export default function Home() {
                           delay: getPseudoRandom((i + 10) * 13) * 3, 
                           repeatDelay: 1 + getPseudoRandom((i + 10) * 7) * 1.5 
                         }}
-                        className="absolute top-0 w-8 sm:w-9 h-32 sm:h-36 bg-gradient-to-b from-zinc-800 via-zinc-900 to-black rounded-b-md z-20 border border-zinc-700 shadow-[0_4px_8px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(0,0,0,0.4)]"
+                        className="absolute top-0 w-6 sm:w-9 h-24 sm:h-36 bg-gradient-to-b from-zinc-800 via-zinc-900 to-black rounded-b-md z-20 border border-zinc-700 shadow-[0_4px_8px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(0,0,0,0.4)]"
                       >
                         <motion.div 
                           whileInView={{ opacity: [0, 0.9, 0] }}

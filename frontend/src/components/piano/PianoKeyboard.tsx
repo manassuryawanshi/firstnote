@@ -75,7 +75,7 @@ export default function PianoKeyboard({
                  style={{ transformOrigin: 'top' }}
                  animate={{ backgroundColor: active ? (theme === 'blue' ? '#06b6d4' : '#22c55e') : '#18181b', scaleY: active ? 0.96 : 1 }}
                  whileHover={{ backgroundColor: active ? (theme === 'blue' ? '#06b6d4' : '#22c55e') : (theme === 'blue' ? '#164e63' : '#14532d') }}
-                 className={`absolute -left-4 w-8 h-24 rounded-b-lg border-2 z-20 shadow-xl flex items-end justify-center pb-2 cursor-pointer
+                 className={`absolute -left-3 md:-left-4 w-6 md:w-8 h-20 md:h-24 rounded-b-lg border-2 z-20 shadow-xl flex items-end justify-center pb-2 cursor-pointer
                    ${active ? (theme === 'blue' ? 'border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.4)]' : 'border-green-400 shadow-[0_0_20px_rgba(34,197,94,0.4)]') : 'border-black'}`}
                  onPointerDown={() => handlePointerDown(key.note)}
                  onPointerUp={() => handlePointerUp(key.note)}
@@ -95,7 +95,7 @@ export default function PianoKeyboard({
             style={{ transformOrigin: 'top' }}
             animate={{ backgroundColor: active ? (theme === 'blue' ? '#67e8f9' : '#86efac') : '#ffffff', scaleY: active ? 0.98 : 1 }}
             whileHover={{ backgroundColor: active ? (theme === 'blue' ? '#67e8f9' : '#86efac') : (theme === 'blue' ? '#cffafe' : '#dcfce7') }}
-            className={`w-12 h-40 rounded-b-xl border-x border-b border-zinc-300 flex items-end justify-center pb-4 z-10 cursor-pointer select-none
+            className={`w-10 md:w-12 h-32 md:h-40 shrink-0 rounded-b-xl border-x border-b border-zinc-300 flex items-end justify-center pb-4 z-10 cursor-pointer select-none
               ${active ? (theme === 'blue' ? 'shadow-[inset_0_0_20px_rgba(6,182,212,0.5)]' : 'shadow-[inset_0_0_20px_rgba(34,197,94,0.5)]') : ''}
             `}
             onPointerDown={() => handlePointerDown(key.note)}
