@@ -187,7 +187,7 @@ function CoursePageContent() {
               icon={<BookOpen className="w-4 h-4 text-cyan-400" />}
               position="bottom"
            />
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] tracking-tighter text-center leading-[1.05] mb-6 px-4 md:px-8 whitespace-nowrap relative z-10">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] tracking-tighter text-center leading-[1.05] mb-6 px-4 md:px-8 whitespace-normal md:whitespace-nowrap relative z-10">
             <span className="font-extrabold text-zinc-900 dark:text-white block">Master the rules of music.</span>
             <span className="font-extrabold text-zinc-900 dark:text-white">Then break them as a </span>
             <span className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#06b6d4,#3b82f6,#ffffff,#3b82f6,#06b6d4)] bg-[length:200%_auto] pr-2 drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]" style={{ animation: 'flow 2s linear infinite' }}>

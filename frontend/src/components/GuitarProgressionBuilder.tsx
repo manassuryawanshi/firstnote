@@ -365,7 +365,7 @@ export default function GuitarProgressionBuilder() {
          </div>
 
          {/* Quick Add Form */}
-         <div className="flex flex-wrap items-center gap-4 bg-white dark:bg-black/50 p-3 rounded-2xl border border-black/10 dark:border-white/10 shadow-inner w-max">
+         <div className="flex flex-wrap items-center gap-4 bg-white dark:bg-black/50 p-3 rounded-2xl border border-black/10 dark:border-white/10 shadow-inner w-full md:w-max">
             <select 
                value={selectedRoot} 
                onChange={(e) => setSelectedRoot(e.target.value)}

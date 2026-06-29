@@ -283,7 +283,7 @@ export default function PianoChordLibrary({ onInjectProgression }: PianoChordLib
   return (
     <div className="relative rounded-[3rem] p-[2px] overflow-hidden group shadow-2xl [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
       <div className="absolute w-[4000px] h-[4000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,rgba(34,197,94,0.3)_0%,rgba(255,255,255,0.9)_50%,rgba(34,197,94,0.3)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-      <div className="relative bg-[#0a0a0a]/95 rounded-[calc(3rem-2px)] p-8 backdrop-blur-md h-full w-full">
+      <div className="relative bg-[#0a0a0a]/95 rounded-[calc(3rem-2px)] p-4 md:p-8 backdrop-blur-md h-full w-full">
         <div className="flex flex-col md:flex-row gap-12 relative z-10">
           <div className="w-full md:w-1/3 space-y-6">
            <div className="space-y-4 bg-white dark:bg-black/40 p-6 rounded-3xl border border-black/10 dark:border-white/10 shadow-inner">
@@ -408,7 +408,7 @@ export default function PianoChordLibrary({ onInjectProgression }: PianoChordLib
             )}
         </div>
 
-         <div className="w-full md:w-2/3 flex flex-col justify-center items-center bg-white dark:bg-black/40 rounded-[2rem] border border-black/10 dark:border-white/10 p-8 relative overflow-hidden min-h-[600px] shadow-inner">
+         <div className="w-full md:w-2/3 flex flex-col justify-center items-center bg-white dark:bg-black/40 rounded-[2rem] border border-black/10 dark:border-white/10 p-4 md:p-8 relative overflow-hidden min-h-[600px] shadow-inner min-w-0">
            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-900/30 via-transparent to-transparent pointer-events-none"></div>
            
            <div className="absolute top-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-widest text-zinc-600 dark:text-zinc-400 font-bold flex items-center gap-2 z-10 pointer-events-none opacity-80">
@@ -447,7 +447,7 @@ export default function PianoChordLibrary({ onInjectProgression }: PianoChordLib
                  <motion.div 
                    initial={{ opacity: 0, y: 20 }}
                    animate={{ opacity: 1, y: 0 }}
-                   className="w-full max-w-2xl bg-white dark:bg-black/60 rounded-[2rem] p-8 border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col gap-6 text-left"
+                   className="w-full max-w-2xl bg-white dark:bg-black/60 rounded-[2rem] p-5 md:p-8 border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col gap-6 text-left"
                  >
                     <div className="text-center mb-2 pb-6 border-b border-black/10 dark:border-white/10">
                        <h3 className="text-sm font-black text-green-400 tracking-widest uppercase flex items-center justify-center gap-2">
