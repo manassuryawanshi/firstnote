@@ -47,10 +47,15 @@ export default function Home() {
   // Close search and quick tools on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      const container = document.getElementById("search-island-container");
-      if (container && !container.contains(e.target as Node)) {
-        setIsIslandHovered(false);
+      const searchContainer = document.getElementById("search-island-container");
+      const quickToolsContainer = document.getElementById("command-hub");
+      
+      if (searchContainer && !searchContainer.contains(e.target as Node)) {
         setIsSearchFocused(false);
+      }
+      
+      if (quickToolsContainer && !quickToolsContainer.contains(e.target as Node)) {
+        setIsIslandHovered(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
