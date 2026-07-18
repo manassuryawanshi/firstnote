@@ -12,7 +12,7 @@ import { useTutorial } from "@/context/TutorialContext";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import TutorialTooltip from "@/components/TutorialTooltip";
 
-const ROTATING_WORDS = ["Guitarists", "Pianists", "Producers", "Learners"];
+const ROTATING_WORDS = ["Musicians", "Artists", "Composers", "Creators", "Audiophiles"];
 const SEARCH_PROMPTS = ["Search for 'Syncopation'...", "Try 'Guitar Tuner'...", "Ask about 'Jazz Chords'..."];
 
 const getPseudoRandom = (seed: number) => {
