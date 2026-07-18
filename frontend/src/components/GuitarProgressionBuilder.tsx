@@ -504,6 +504,7 @@ export default function GuitarProgressionBuilder() {
             
             {/* Transpose Controls */}
             <div className="flex items-center gap-1 bg-white dark:bg-black/50 border border-black/10 dark:border-white/10 rounded-xl p-1 shadow-inner mr-2">
+               <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-3 mr-1">Transpose</span>
                <button 
                  onClick={() => handleTranspose(-1)}
                  disabled={chain.length === 0}

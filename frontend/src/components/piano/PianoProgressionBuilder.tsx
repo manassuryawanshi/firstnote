@@ -547,6 +547,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
 
            <div className="flex items-center gap-2">
               <div className="flex items-center gap-1 bg-white dark:bg-black/50 border border-black/10 dark:border-white/10 rounded-xl p-1 shadow-inner mr-4 group">
+                 <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-3 mr-1">Transpose</span>
                  <button 
                    onClick={() => handleTranspose(-1)}
                    className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-black/5 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 font-bold text-sm transition-colors hover:text-zinc-900 dark:text-white"
@@ -618,6 +619,9 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
                fitView
                minZoom={0.2}
                maxZoom={2}
+               zoomOnScroll={false}
+               zoomOnPinch={true}
+               panOnScroll={true}
                className="bg-[#0a0a0a]"
              >
                <Background color="#22c55e" gap={20} size={1} className="opacity-10" />
@@ -629,14 +633,15 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
         <div className="absolute bottom-0 left-0 right-0 p-8 z-10 flex justify-between items-center pointer-events-none bg-gradient-to-t from-black/80 to-transparent">
           {/* Custom Controls */}
           {nodes.length > 0 ? (
-             <div className="flex gap-2 pointer-events-auto">
-                <button onClick={handleZoomIn} className="w-12 h-12 bg-white dark:bg-black border border-black/10 dark:border-white/10 hover:border-green-500 hover:text-green-400 text-zinc-900 dark:text-white rounded-xl flex items-center justify-center transition-all backdrop-blur-md shadow-lg shadow-black/50 group">
+             <div className="flex items-center gap-1 pointer-events-auto bg-white dark:bg-black border border-black/10 dark:border-white/10 p-1 rounded-2xl backdrop-blur-md shadow-lg shadow-black/50">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-3 mr-1">Zoom</span>
+                <button onClick={handleZoomIn} className="w-10 h-10 hover:bg-black/5 dark:hover:bg-white/5 hover:text-green-400 text-zinc-900 dark:text-white rounded-xl flex items-center justify-center transition-all group">
                   <Plus className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </button>
-                <button onClick={handleZoomOut} className="w-12 h-12 bg-white dark:bg-black border border-black/10 dark:border-white/10 hover:border-green-500 hover:text-green-400 text-zinc-900 dark:text-white rounded-xl flex items-center justify-center transition-all backdrop-blur-md shadow-lg shadow-black/50 group">
+                <button onClick={handleZoomOut} className="w-10 h-10 hover:bg-black/5 dark:hover:bg-white/5 hover:text-green-400 text-zinc-900 dark:text-white rounded-xl flex items-center justify-center transition-all group">
                   <Minus className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </button>
-                <button onClick={handleFitView} className="w-12 h-12 bg-white dark:bg-black border border-black/10 dark:border-white/10 hover:border-green-500 hover:text-green-400 text-zinc-900 dark:text-white rounded-xl flex items-center justify-center transition-all backdrop-blur-md shadow-lg shadow-black/50 group">
+                <button onClick={handleFitView} className="w-10 h-10 hover:bg-black/5 dark:hover:bg-white/5 hover:text-green-400 text-zinc-900 dark:text-white rounded-xl flex items-center justify-center transition-all group">
                   <Maximize className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </button>
              </div>

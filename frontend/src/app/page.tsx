@@ -454,7 +454,7 @@ export default function Home() {
               <div className="relative w-full max-w-xl mx-auto">
                 <div className="absolute -inset-10 bg-emerald-500/10 blur-[80px] rounded-full"></div>
                 
-                <div className="relative flex justify-start md:justify-center overflow-x-auto scrollbar-hide py-4 -my-4 px-4 -mx-4" style={{ perspective: "1000px" }}>
+                <div className="relative flex justify-start md:justify-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] py-4 -my-4 px-4 -mx-4" style={{ perspective: "1000px" }}>
                   {/* White keys */}
                   <div className="flex gap-[3px] relative transform-style-3d">
                     {isMounted && ["C", "D", "E", "F", "G", "A", "B", "C", "D", "E"].map((note, i) => (
