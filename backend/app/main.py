@@ -15,6 +15,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+@app.head("/")
+async def root_health_check():
+    """
+    Health check endpoint for Uptime monitors (like UptimeRobot or cron-job).
+    Returns a 200 OK instead of a 404.
+    """
+    return {"status": "ok", "message": "FirstNote Backend is awake and running!"}
+
 @app.post("/api/v1/session/upload")
 async def upload_midi(file: UploadFile = File(...)):
     # In a real app, save the file to disk/cloud. For now, pass filename to task.
