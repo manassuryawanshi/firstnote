@@ -621,7 +621,8 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
                maxZoom={2}
                zoomOnScroll={false}
                zoomOnPinch={true}
-               panOnScroll={true}
+               panOnScroll={false}
+               preventScrolling={false}
                className="bg-[#0a0a0a]"
              >
                <Background color="#22c55e" gap={20} size={1} className="opacity-10" />
