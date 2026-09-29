@@ -52,11 +52,11 @@ export default function Navbar() {
         style={{ backgroundColor: navBackground, borderColor: navBorder, backdropFilter: "blur(40px) saturate(200%)" }}
         className="pointer-events-auto flex items-center justify-between px-6 py-3 transition-all duration-300 border rounded-full w-full max-w-5xl shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
       >
-        <Link href="/" className="flex items-center gap-3 cursor-pointer group">
+        <Link href="/" className="flex items-center gap-2.5 cursor-pointer group">
           <div className="w-9 h-9 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(249,115,22,0.3)] group-hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
             <Image src="/logo.png" alt="Chordyn Logo" width={36} height={36} className="w-full h-full object-cover" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-white group-hover:text-zinc-300 transition-colors">Chordyn</span>
+          <span className="text-2xl font-black text-white tracking-tighter group-hover:text-zinc-300 transition-colors">Chordyn.</span>
         </Link>
         <div className="flex items-center gap-4 md:gap-12 text-[10px] sm:text-xs font-bold tracking-[0.1em] md:tracking-[0.2em] uppercase text-zinc-400">
           {navLinks.map((link) => {
