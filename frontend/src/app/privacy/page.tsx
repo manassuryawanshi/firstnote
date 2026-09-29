@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
 
         <div className="space-y-6 text-lg leading-relaxed font-light">
           <p>
-            At FirstNote Architecture, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our interactive music theory platform and tools.
+            At Chordyn Architecture, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our interactive music theory platform and tools.
           </p>
 
           <h2 className="text-2xl font-bold text-white pt-4">1. Information We Collect</h2>

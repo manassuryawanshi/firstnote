@@ -273,7 +273,8 @@ export default function Home() {
            <div className="relative group/island">
              <motion.div
                 layout
-                className={`flex flex-wrap justify-center items-center overflow-hidden bg-black/60 backdrop-blur-md border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-3xl p-4 w-[95vw] md:w-[750px] gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
+                onClick={() => setIsIslandHovered(true)}
+                className={`flex flex-col justify-center items-center overflow-hidden bg-black/60 backdrop-blur-md border ${tutorialStep >= 2 ? 'border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.5)]' : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'} ${(isIslandHovered || tutorialStep === 2 || tutorialStep === 3) ? 'rounded-[2rem] p-3 w-[92vw] max-w-[800px] gap-2' : 'rounded-full p-0 w-48 h-12 justify-center cursor-pointer'}`}
                 initial={false}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
              >
@@ -292,14 +293,15 @@ export default function Home() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex flex-wrap items-center justify-center w-full gap-2 relative"
+                      className="grid grid-cols-3 md:grid-cols-6 w-full gap-2 relative"
                    >
                     {[
-                      { title: "Piano Sandbox", subtitle: "Interactive progression builder", href: "/piano#sandbox", icon: <Piano className="w-6 h-6 text-emerald-400" />, color: "bg-emerald-500/10 hover:bg-emerald-500/20", borderColor: "border-emerald-500/30", glow: "shadow-[0_0_15px_rgba(16,185,129,0.4)]", isStep3: true },
-                      { title: "Guitar Tuner", subtitle: "Live chromatic tuner", href: "/guitar#tuner", icon: <Guitar className="w-6 h-6 text-fuchsia-400" />, color: "bg-fuchsia-500/10 hover:bg-fuchsia-500/20", borderColor: "border-fuchsia-500/30", glow: "shadow-[0_0_15px_rgba(217,70,239,0.4)]" },
-                      { title: "Chord Finder", subtitle: "Dictionary & Voicings", href: "/piano#dictionary", icon: <Layers className="w-6 h-6 text-amber-400" />, color: "bg-amber-500/10 hover:bg-amber-500/20", borderColor: "border-amber-500/30", glow: "shadow-[0_0_15px_rgba(245,158,11,0.4)]" },
-                      { title: "Theory Library", subtitle: "Deep knowledge base", href: "/library", icon: <BookOpen className="w-6 h-6 text-cyan-400" />, color: "bg-cyan-500/10 hover:bg-cyan-500/20", borderColor: "border-cyan-500/30", glow: "shadow-[0_0_15px_rgba(6,182,212,0.4)]" },
-                      { title: "Scale Matrix", subtitle: "Visual mode explorer", href: "/guitar#fretboard", icon: <Activity className="w-6 h-6 text-blue-400" />, color: "bg-blue-500/10 hover:bg-blue-500/20", borderColor: "border-blue-500/30", glow: "shadow-[0_0_15px_rgba(59,130,246,0.4)]" },
+                      { title: "Piano Sandbox", subtitle: "Interactive builder", href: "/piano#sandbox", icon: <Piano className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />, color: "bg-emerald-500/10 hover:bg-emerald-500/20", borderColor: "border-emerald-500/30", glow: "shadow-[0_0_15px_rgba(16,185,129,0.4)]", isStep3: true },
+                      { title: "Guitar Tuner", subtitle: "Chromatic tuner", href: "/guitar#tuner", icon: <Guitar className="w-5 h-5 md:w-6 md:h-6 text-fuchsia-400" />, color: "bg-fuchsia-500/10 hover:bg-fuchsia-500/20", borderColor: "border-fuchsia-500/30", glow: "shadow-[0_0_15px_rgba(217,70,239,0.4)]" },
+                      { title: "Chord Finder", subtitle: "Dictionary & Voicings", href: "/piano#dictionary", icon: <Layers className="w-5 h-5 md:w-6 md:h-6 text-amber-400" />, color: "bg-amber-500/10 hover:bg-amber-500/20", borderColor: "border-amber-500/30", glow: "shadow-[0_0_15px_rgba(245,158,11,0.4)]" },
+                      { title: "Theory Library", subtitle: "Knowledge base", href: "/library", icon: <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />, color: "bg-cyan-500/10 hover:bg-cyan-500/20", borderColor: "border-cyan-500/30", glow: "shadow-[0_0_15px_rgba(6,182,212,0.4)]" },
+                      { title: "Scale Matrix", subtitle: "Visual explorer", href: "/guitar#fretboard", icon: <Activity className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />, color: "bg-blue-500/10 hover:bg-blue-500/20", borderColor: "border-blue-500/30", glow: "shadow-[0_0_15px_rgba(59,130,246,0.4)]" },
+                      { title: "Ear Trainer", subtitle: "Pitch practice", href: "/library/module-11/m11-c1", icon: <AudioLines className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />, color: "bg-indigo-500/10 hover:bg-indigo-500/20", borderColor: "border-indigo-500/30", glow: "shadow-[0_0_15px_rgba(99,102,241,0.4)]" },
                     ].map((tool, i) => (
                       <Link 
                          key={i} 
@@ -312,7 +314,7 @@ export default function Home() {
                                completeTutorial();
                             }
                          }}
-                         className={`w-[30%] sm:w-auto sm:flex-1 flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 ${tool.color} border ${(tutorialStep === 3 && tool.isStep3) ? 'border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)]' : 'border-white/5'} group relative overflow-visible`}
+                         className={`flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 ${tool.color} border ${(tutorialStep === 3 && tool.isStep3) ? 'border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)]' : 'border-white/5'} group relative overflow-visible`}
                       >
                          <AnimatePresence>
                            {hoveredToolIndex === i && (

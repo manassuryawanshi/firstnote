@@ -22,7 +22,7 @@ async def root_health_check():
     Health check endpoint for Uptime monitors (like UptimeRobot or cron-job).
     Returns a 200 OK instead of a 404.
     """
-    return {"status": "ok", "message": "FirstNote Backend is awake and running!"}
+    return {"status": "ok", "message": "Chordyn Backend is awake and running!"}
 
 @app.post("/api/v1/session/upload")
 async def upload_midi(file: UploadFile = File(...)):

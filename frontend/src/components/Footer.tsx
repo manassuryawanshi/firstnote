@@ -75,7 +75,7 @@ export default function Footer() {
                     Hey. I'm Manas. By day, I'm a software and AI engineer, but at my core, I'm simply a musician. I play guitar, sing, compose, and perform with my band, <span className="text-white font-medium">Gati</span>.
                   </p>
                   <p>
-                    FirstNote was born out of my own frustrations. I wanted a platform that visualized the beautiful, mathematical geometry of the fretboard and keyboard in a way that actually made sense to an artist. 
+                    Chordyn was born out of my own frustrations. I wanted a platform that visualized the beautiful, mathematical geometry of the fretboard and keyboard in a way that actually made sense to an artist. 
                   </p>
                   <p>
                     This project bridges the gap between complex engineering and raw musical creativity. I hope it helps you unlock your musical potential, just as building it has unlocked mine. 
@@ -109,8 +109,8 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2 space-y-4">
-            <h3 className="text-2xl font-black text-white tracking-tighter flex items-center gap-2">
-              <Activity className="w-6 h-6 text-emerald-500" /> FirstNote.
+            <h3 className="text-2xl font-black text-white tracking-tighter flex items-center gap-2.5">
+              <Image src="/logo.png" alt="Chordyn Logo" width={28} height={28} className="rounded-lg shadow-[0_0_15px_rgba(249,115,22,0.3)] inline-block" /> Chordyn.
             </h3>
             <p className="text-zinc-500 text-sm max-w-sm">
               The premium, interactive suite for modern musicians, producers, and theory enthusiasts.
@@ -155,7 +155,7 @@ export default function Footer() {
         </div>
         
         <div className="max-w-7xl mx-auto px-6 md:px-16 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-zinc-600 text-xs">© {new Date().getFullYear()} FirstNote Architecture. All rights reserved.</p>
+          <p className="text-zinc-600 text-xs">© {new Date().getFullYear()} Chordyn Architecture. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors">Privacy</Link>
             <Link href="/terms" className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors">Terms</Link>

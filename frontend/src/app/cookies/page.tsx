@@ -13,7 +13,7 @@ export default function CookiePolicy() {
 
         <div className="space-y-6 text-lg leading-relaxed font-light">
           <p>
-            This Cookie Policy explains how FirstNote Architecture uses cookies and similar technologies to recognize you when you visit our platform.
+            This Cookie Policy explains how Chordyn Architecture uses cookies and similar technologies to recognize you when you visit our platform.
           </p>
 
           <h2 className="text-2xl font-bold text-white pt-4">1. What are Cookies?</h2>

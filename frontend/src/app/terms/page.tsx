@@ -13,7 +13,7 @@ export default function TermsOfService() {
 
         <div className="space-y-6 text-lg leading-relaxed font-light">
           <p>
-            Welcome to FirstNote Architecture. By accessing or using our platform, you agree to be bound by these Terms of Service. Please read them carefully.
+            Welcome to Chordyn Architecture. By accessing or using our platform, you agree to be bound by these Terms of Service. Please read them carefully.
           </p>
 
           <h2 className="text-2xl font-bold text-white pt-4">1. Acceptance of Terms</h2>
@@ -28,12 +28,12 @@ export default function TermsOfService() {
 
           <h2 className="text-2xl font-bold text-white pt-4">3. Intellectual Property</h2>
           <p>
-            The design, code, architecture, and educational content provided on FirstNote are the intellectual property of FirstNote Architecture. You may not copy, reproduce, or distribute our proprietary content without explicit permission.
+            The design, code, architecture, and educational content provided on Chordyn are the intellectual property of Chordyn Architecture. You may not copy, reproduce, or distribute our proprietary content without explicit permission.
           </p>
 
           <h2 className="text-2xl font-bold text-white pt-4">4. Disclaimer of Warranties</h2>
           <p>
-            FirstNote is provided "as is" without any warranties, express or implied. While we strive to provide accurate music theory tools, we do not guarantee that the service will be error-free or uninterrupted.
+            Chordyn is provided "as is" without any warranties, express or implied. While we strive to provide accurate music theory tools, we do not guarantee that the service will be error-free or uninterrupted.
           </p>
         </div>
       </div>

@@ -631,7 +631,7 @@ export default function PianoProgressionBuilder({ injectedProgression, onClearIn
         </div>
 
         {/* Bottom Overlay UI */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 z-10 flex justify-between items-center pointer-events-none bg-gradient-to-t from-black/80 to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8 z-10 flex flex-col sm:flex-row justify-between items-center gap-4 pointer-events-none bg-gradient-to-t from-black/80 to-transparent">
           {/* Custom Controls */}
           {nodes.length > 0 ? (
              <div className="flex items-center gap-1 pointer-events-auto bg-white dark:bg-black border border-black/10 dark:border-white/10 p-1 rounded-2xl backdrop-blur-md shadow-lg shadow-black/50">

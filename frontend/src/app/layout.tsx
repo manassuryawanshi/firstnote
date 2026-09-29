@@ -18,16 +18,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FirstNote",
-  description: "The ultimate toolkit for musicians. Play, learn, and orchestrate with FirstNote.",
+  title: "Chordyn",
+  description: "The ultimate toolkit for musicians. Play, learn, and orchestrate with Chordyn.",
   manifest: "/manifest.json",
   icons: {
-    apple: "/icon-192x192.png?v=2",
+    icon: "/icon-192x192.png?v=3",
+    apple: "/apple-touch-icon.png?v=3",
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "FirstNote",
+    title: "Chordyn",
   },
 };
 
