@@ -426,7 +426,7 @@ export default function SongSheetModal({
                     if (line.includes("[ch]")) {
                       const tokens = line.split(/(\[ch\].*?\[\/ch\])/);
                       return (
-                        <div key={lineIdx} className="whitespace-pre min-h-[1.75rem] flex items-center relative z-10 hover:z-40">
+                        <div key={lineIdx} className="whitespace-pre min-h-[1.75rem] flex items-center">
                           {tokens.map((token, tIdx) => {
                             if (token.startsWith("[ch]") && token.endsWith("[/ch]")) {
                               const chordName = token.replace(/\[\/?ch\]/g, "").trim();

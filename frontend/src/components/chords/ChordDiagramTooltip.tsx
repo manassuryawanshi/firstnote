@@ -185,7 +185,7 @@ export default function ChordDiagramTooltip({
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="p-3.5 bg-[#0d0d0e]/95 backdrop-blur-xl border border-white/15 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] w-60 text-left select-none text-white z-50 pointer-events-auto"
+      className="p-3.5 bg-[#0e0e12] border border-white/15 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.95)] w-60 text-left select-none text-white pointer-events-auto"
     >
       {/* Top Header */}
       <div className="pb-2.5 mb-2.5 border-b border-white/10">

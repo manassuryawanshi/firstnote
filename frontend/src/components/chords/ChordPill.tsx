@@ -18,26 +18,35 @@ export default function ChordPill({ chord }: ChordPillProps) {
   const calculatePosition = () => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
-      const lyricsBlock = containerRef.current.closest(".font-mono") || containerRef.current.closest("div[class*='space-y']");
-      const blockTop = lyricsBlock ? lyricsBlock.getBoundingClientRect().top : rect.top;
-      
-      const scrollParent = containerRef.current.closest(".custom-scrollbar") || containerRef.current.closest("div[class*='overflow-y-auto']");
-      const parentTop = scrollParent ? scrollParent.getBoundingClientRect().top : 120;
-      
-      const spaceAbove = rect.top - parentTop;
-      const distFromBlockTop = rect.top - blockTop;
+      const scrollParent =
+        containerRef.current.closest(".custom-scrollbar") ||
+        containerRef.current.closest("div[class*='overflow-y-auto']");
+      const parentRect = scrollParent
+        ? scrollParent.getBoundingClientRect()
+        : { top: 0, bottom: window.innerHeight };
 
-      // If chord is within top 180px of lyrics block, or space above is tight (< 280px), flip below!
-      if (distFromBlockTop < 180 || spaceAbove < 280) {
+      const spaceAbove = rect.top - parentRect.top;
+      const spaceBelow = parentRect.bottom - rect.bottom;
+
+      // Tooltip height is ~340px
+      if (spaceAbove < 340 && spaceBelow >= 260) {
+        setPlacement("bottom");
+      } else if (spaceBelow < 340 && spaceAbove >= 340) {
+        setPlacement("top");
+      } else if (spaceBelow >= spaceAbove) {
         setPlacement("bottom");
       } else {
         setPlacement("top");
       }
 
-      // Check horizontal collision with screen edges (tooltip is ~240px wide)
-      if (rect.left < 140) {
+      // Check horizontal collision with screen edges (tooltip is 240px wide)
+      const screenWidth = window.innerWidth;
+      const pillCenter = rect.left + rect.width / 2;
+      const tooltipHalfWidth = 125;
+
+      if (pillCenter - tooltipHalfWidth < 12) {
         setHorizontalAlign("left");
-      } else if (window.innerWidth - rect.right < 140) {
+      } else if (pillCenter + tooltipHalfWidth > screenWidth - 12) {
         setHorizontalAlign("right");
       } else {
         setHorizontalAlign("center");
@@ -72,16 +81,18 @@ export default function ChordPill({ chord }: ChordPillProps) {
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside, { passive: true });
     }
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isOpen]);
 
@@ -100,7 +111,7 @@ export default function ChordPill({ chord }: ChordPillProps) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
-      className={`relative inline-block my-0.5 mx-0.5 ${isOpen ? "z-[150]" : "z-10"}`}
+      className={`relative inline-block my-0.5 mx-0.5 ${isOpen ? "z-[200]" : "z-0"}`}
     >
       <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold font-mono tracking-wide text-orange-300 bg-orange-950/60 hover:bg-orange-500/25 border border-orange-500/40 hover:border-orange-300 hover:text-orange-200 transition-all cursor-pointer shadow-[0_0_14px_rgba(249,115,22,0.2)] group select-none">
         {chord}
@@ -114,7 +125,7 @@ export default function ChordPill({ chord }: ChordPillProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: placement === "bottom" ? -6 : 6, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className={`absolute ${positionClasses} z-[200]`}
+            className={`absolute ${positionClasses} z-[250]`}
           >
             <ChordDiagramTooltip chord={chord} />
           </motion.div>
