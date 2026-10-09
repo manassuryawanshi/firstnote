@@ -171,14 +171,14 @@ export default function Home() {
       {/* Hero Section */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 w-full text-center pb-[35vh]">
         <TutorialOverlay activeSteps={[1, 2, 3]} />
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] tracking-tighter text-center leading-[0.9] mb-8 px-4 whitespace-normal md:whitespace-nowrap">
-          <span className="font-extrabold text-white block mb-0">The ultimate toolkit.</span>
-          <div className="flex items-center justify-center">
-            <span className="font-extrabold text-white mr-4">for </span>
-            <span className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#ef4444,#f97316,#ffffff,#f97316,#ef4444)] bg-[length:200%_auto] pr-2 drop-shadow-[0_0_20px_rgba(239,68,68,0.8)]" style={{ animation: 'flow 2s linear infinite' }}>
+        <h1 className="text-[2rem] min-[360px]:text-[2.25rem] min-[390px]:text-4xl sm:text-6xl md:text-7xl lg:text-[6.5rem] tracking-tighter text-center leading-[0.95] sm:leading-[0.9] mb-8 px-4 whitespace-normal md:whitespace-nowrap">
+          <span className="font-extrabold text-white block mb-1 sm:mb-0 whitespace-nowrap">The ultimate toolkit.</span>
+          <div className="flex items-center justify-center whitespace-nowrap">
+            <span className="font-extrabold text-white mr-2.5 sm:mr-4">for </span>
+            <span className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#ef4444,#f97316,#ffffff,#f97316,#ef4444)] bg-[length:200%_auto] pr-1.5 sm:pr-2 drop-shadow-[0_0_20px_rgba(239,68,68,0.8)]" style={{ animation: 'flow 2s linear infinite' }}>
               {text}
             </span>
-            <span className="inline-block w-[6px] h-[0.8em] bg-white animate-pulse rounded-full opacity-80 align-baseline"></span>
+            <span className="inline-block w-[4px] sm:w-[6px] h-[0.8em] bg-white animate-pulse rounded-full opacity-80 align-baseline"></span>
           </div>
         </h1>
 
