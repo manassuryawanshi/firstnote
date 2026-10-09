@@ -185,13 +185,17 @@ export default function Home() {
         {/* Chord Finder Feature Callout */}
         <div className="flex flex-col items-center mb-4 max-w-2xl px-4 text-center">
           {/* Praised 1.5M+ Songs Engine Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-fuchsia-500/20 via-amber-500/20 to-cyan-500/20 border border-fuchsia-500/30 text-fuchsia-200 text-xs font-semibold backdrop-blur-md shadow-[0_0_25px_rgba(217,70,239,0.25)]">
-            <span className="w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse"></span>
-            <span className="tracking-wide">1.5M+ Song Chords &amp; Lyrics Engine</span>
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-fuchsia-500/20 via-amber-500/20 to-cyan-500/20 border border-fuchsia-500/30 text-fuchsia-200 text-[10.5px] sm:text-xs font-semibold backdrop-blur-md shadow-[0_0_25px_rgba(217,70,239,0.25)] whitespace-nowrap">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fuchsia-400 animate-pulse shrink-0"></span>
+            <span className="tracking-wide">
+              1.5M+ Song Chords<span className="hidden sm:inline"> &amp; Lyrics Engine</span>
+            </span>
             <span className="text-zinc-600">•</span>
             <span className="text-zinc-300">100% Ad-Free</span>
             <span className="text-zinc-600">•</span>
-            <span className="text-amber-300 font-medium">1-Click Transpose</span>
+            <span className="text-amber-300 font-medium">
+              <span className="hidden sm:inline">1-Click </span>Transpose
+            </span>
           </div>
         </div>
 
