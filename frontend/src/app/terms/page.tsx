@@ -1,4 +1,13 @@
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description: "Terms of Service governing the use of Chordyn's music tools and interactive theory suite.",
+  alternates: {
+    canonical: "/terms",
+  },
+};
 
 export default function TermsOfService() {
   return (

@@ -18,8 +18,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chordyn",
-  description: "The ultimate toolkit for musicians. Play, learn, and orchestrate with Chordyn.",
+  metadataBase: new URL("https://chordyn.vercel.app"),
+  title: {
+    default: "Chordyn — Song Chords, Piano & Guitar Tools",
+    template: "%s | Chordyn",
+  },
+  description: "Explore song chords, transpose progressions, tune your guitar, build piano progressions, and learn music theory with Chordyn.",
   manifest: "/manifest.json",
   icons: {
     icon: "/icon-192x192.png?v=3",
@@ -33,6 +37,42 @@ export const metadata: Metadata = {
   verification: {
     google: "rsmP3tnBH38XZ0mAGggv0I5_LWrW6NyoXHPvII3_ncM",
   },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Chordyn — Song Chords, Piano & Guitar Tools",
+    description: "Explore song chords, transpose progressions, tune your guitar, build piano progressions, and learn music theory with Chordyn.",
+    url: "https://chordyn.vercel.app",
+    siteName: "Chordyn",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "Chordyn Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chordyn — Song Chords, Piano & Guitar Tools",
+    description: "Explore song chords, transpose progressions, tune your guitar, build piano progressions, and learn music theory with Chordyn.",
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export const viewport = {
@@ -41,6 +81,36 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://chordyn.vercel.app/#website",
+      "url": "https://chordyn.vercel.app",
+      "name": "Chordyn",
+      "description": "The ultimate toolkit for musicians. Play, learn, and orchestrate with Chordyn.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Chordyn",
+        "url": "https://chordyn.vercel.app",
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://chordyn.vercel.app/#application",
+      "name": "Chordyn",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -54,6 +124,12 @@ export default function RootLayout({
       className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black flex flex-col min-h-screen`}>
         <PWARegister />
         <TutorialProvider>

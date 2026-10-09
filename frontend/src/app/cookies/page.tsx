@@ -1,4 +1,13 @@
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cookie Policy",
+  description: "Cookie Policy for Chordyn — details on essential storage and browser preferences.",
+  alternates: {
+    canonical: "/cookies",
+  },
+};
 
 export default function CookiePolicy() {
   return (

@@ -41,9 +41,21 @@ const getPseudoRandom = (seed: number) => {
    return x - Math.floor(x);
 };
 
-function CoursePageContent() {
+function UrlParamsSync({
+  onParamsSync,
+}: {
+  onParamsSync: (modId: string | null, chapId: string | null) => void;
+}) {
   const searchParams = useSearchParams();
-  
+  useEffect(() => {
+    const modId = searchParams.get("module");
+    const chapId = searchParams.get("chapter");
+    onParamsSync(modId, chapId);
+  }, [searchParams, onParamsSync]);
+  return null;
+}
+
+function CoursePageContent() {
   const [activeModuleId, setActiveModuleId] = useState(COURSE_DATA[0].id);
   const [activeChapterId, setActiveChapterId] = useState(COURSE_DATA[0].chapters[0].id);
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,12 +67,10 @@ function CoursePageContent() {
 
   const { tutorialStep, completeTutorial } = useTutorial();
 
-  useEffect(() => {
-    const modId = searchParams.get('module');
-    const chapId = searchParams.get('chapter');
+  const handleParamsSync = (modId: string | null, chapId: string | null) => {
     if (modId) setActiveModuleId(modId);
     if (chapId) setActiveChapterId(chapId);
-  }, [searchParams]);
+  };
 
   useEffect(() => {
     const typingSpeed = isDeleting ? 50 : 100;
@@ -145,6 +155,9 @@ function CoursePageContent() {
 
   return (
     <main className="min-h-screen bg-[#000000] text-zinc-900 dark:text-white pt-32 px-6 pb-32 overflow-hidden relative selection:bg-blue-500/30">
+      <Suspense fallback={null}>
+        <UrlParamsSync onParamsSync={handleParamsSync} />
+      </Suspense>
       
       {/* Dynamic Background: Data Streams */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-80 z-0">
@@ -401,9 +414,5 @@ function CoursePageContent() {
 }
 
 export default function CoursePage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#000000] text-zinc-900 dark:text-white pt-32 px-6 flex items-center justify-center">Loading Library...</div>}>
-      <CoursePageContent />
-    </Suspense>
-  );
+  return <CoursePageContent />;
 }

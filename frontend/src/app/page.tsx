@@ -637,7 +637,7 @@ export default function Home() {
                       { title: "Song Chords", subtitle: "1.5M+ Catalog", href: "/#song-chords-engine", icon: <Music className="w-5 h-5 md:w-6 md:h-6 text-orange-400" />, color: "bg-orange-500/10 hover:bg-orange-500/20", borderColor: "border-orange-500/30", glow: "shadow-[0_0_15px_rgba(249,115,22,0.4)]" },
                       { title: "Theory Library", subtitle: "Knowledge base", href: "/library", icon: <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />, color: "bg-cyan-500/10 hover:bg-cyan-500/20", borderColor: "border-cyan-500/30", glow: "shadow-[0_0_15px_rgba(6,182,212,0.4)]" },
                       { title: "Scale Matrix", subtitle: "Visual explorer", href: "/guitar#fretboard", icon: <Activity className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />, color: "bg-blue-500/10 hover:bg-blue-500/20", borderColor: "border-blue-500/30", glow: "shadow-[0_0_15px_rgba(59,130,246,0.4)]" },
-                      { title: "Ear Trainer", subtitle: "Pitch practice", href: "/library/module-11/m11-c1", icon: <AudioLines className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />, color: "bg-indigo-500/10 hover:bg-indigo-500/20", borderColor: "border-indigo-500/30", glow: "shadow-[0_0_15px_rgba(99,102,241,0.4)]" },
+                      { title: "Ear Trainer", subtitle: "Pitch practice", href: "/library?module=module-11&chapter=m11-c1", icon: <AudioLines className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />, color: "bg-indigo-500/10 hover:bg-indigo-500/20", borderColor: "border-indigo-500/30", glow: "shadow-[0_0_15px_rgba(99,102,241,0.4)]" },
                     ].map((tool, i) => (
                       <Link 
                          key={i} 
