@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Chordyn",
   },
+  verification: {
+    google: "rsmP3tnBH38XZ0mAGggv0I5_LWrW6NyoXHPvII3_ncM",
+  },
 };
 
 export const viewport = {
