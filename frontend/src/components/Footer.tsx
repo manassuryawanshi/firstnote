@@ -70,15 +70,18 @@ export default function Footer() {
                   <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Manas Suryawanshi</h3>
                 </div>
                 
-                <div className="text-zinc-400 text-lg md:text-xl leading-relaxed font-normal space-y-6 max-w-2xl">
+                <div className="text-zinc-300 text-lg md:text-xl leading-relaxed font-normal space-y-6 max-w-2xl">
                   <p>
-                    Hey. I'm Manas. By day, I'm a software and AI engineer, but at my core, I'm simply a musician. I play guitar, sing, compose, and perform with my band, <span className="text-white font-medium">Gati</span>.
+                    Hey, I'm Manas. I'm an engineer by trade, but at my core, I've spent my life living with a guitar in my hands, writing songs, and performing live with my band, <span className="text-white font-medium">Gati</span>.
                   </p>
                   <p>
-                    Chordyn was born out of my own frustrations. I wanted a platform that visualized the beautiful, mathematical geometry of the fretboard and keyboard in a way that actually made sense to an artist. 
+                    Chordyn didn't begin as a commercial product or a polished roadmap. It came out of sheer, late-night exhaustion. Every time our band got together to rehearse, we were stuck wrestling with cluttered tab sites drowned in autoplay video ads, paywalls, and broken transposition. And whenever inspiration hit at 2 AM in front of a DAW, I just wanted to see how a rich jazz voicing on my fretboard translated directly onto a piano keyboard without juggling five different tabs.
                   </p>
                   <p>
-                    This project bridges the gap between complex engineering and raw musical creativity. I hope it helps you unlock your musical potential, just as building it has unlocked mine. 
+                    So I built Chordyn as a labor of love for every musician out there — clean, fast, 100% ad-free, and designed with genuine reverence for the craft of songwriting. Whether you're strumming your very first chords in your bedroom, transposing a ballad on stage to match your vocalist, or deconstructing harmonic theory, I built this space for you.
+                  </p>
+                  <p className="text-zinc-400 font-light italic pt-1">
+                    Keep creating, keep listening, and never stop playing.
                   </p>
                 </div>
 
@@ -121,9 +124,10 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-white font-bold tracking-widest text-xs uppercase">The Suites</h4>
             <ul className="space-y-3">
+              <li><Link href="/#song-chords-engine" className="text-zinc-500 hover:text-orange-400 transition-colors text-sm">Song Chords & Lyrics</Link></li>
               <li><Link href="/piano" className="text-zinc-500 hover:text-emerald-400 transition-colors text-sm">Piano Sandbox</Link></li>
               <li><Link href="/guitar" className="text-zinc-500 hover:text-fuchsia-400 transition-colors text-sm">Guitar Toolkit</Link></li>
-              <li><Link href="/library" className="text-zinc-500 hover:text-cyan-400 transition-colors text-sm">Theory Library</Link></li>
+              <li><Link href="/library" className="text-zinc-500 hover:text-cyan-400 transition-colors text-sm">Learn & Theory</Link></li>
             </ul>
           </div>
           

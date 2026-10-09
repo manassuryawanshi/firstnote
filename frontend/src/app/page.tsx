@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { Search, Sparkles, Piano, Guitar, BookOpen, ArrowRight, Music, Layers, Activity, Cable, Clapperboard, AudioLines, Zap, CircleDashed, Code, Globe, Mail, ChevronDown } from "lucide-react";
+import { Search, Sparkles, Piano, Guitar, BookOpen, ArrowRight, Music, Layers, Activity, Cable, Clapperboard, AudioLines, Zap, CircleDashed, Code, Globe, Mail, ChevronDown, Star } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
@@ -11,9 +11,21 @@ const BackgroundScene = dynamic(() => import("@/components/BackgroundScene"), { 
 import { useTutorial } from "@/context/TutorialContext";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import TutorialTooltip from "@/components/TutorialTooltip";
+import SongSheetModal from "@/components/chords/SongSheetModal";
+import ChordPill from "@/components/chords/ChordPill";
+
+import { searchTheoryAndConcepts, TheorySearchResult } from "@/lib/theory-search";
 
 const ROTATING_WORDS = ["Musicians", "Artists", "Composers", "Creators", "Audiophiles"];
-const SEARCH_PROMPTS = ["Search for 'Syncopation'...", "Try 'Guitar Tuner'...", "Ask about 'Jazz Chords'..."];
+const SEARCH_PROMPTS = [
+  "Search 'Hotel California'...",
+  "Search 'Creep' chords...",
+  "Search 'Cmaj7' or 'Asus2'...",
+  "Search 'Circle of Fifths'...",
+  "Search 'Guitar Tuner'...",
+  "Search 'ii-V-I progression'...",
+  "Search 1.5M+ songs...",
+];
 
 const getPseudoRandom = (seed: number) => {
    const x = Math.sin(seed++) * 10000;
@@ -33,7 +45,14 @@ export default function Home() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const { tutorialStep } = useTutorial();
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [theoryResults, setTheoryResults] = useState<TheorySearchResult[]>([]);
+  const [songResults, setSongResults] = useState<any[]>([]);
+  const [searchFilter, setSearchFilter] = useState<"all" | "theory" | "songs">("all");
+  const [isSearchingSongs, setIsSearchingSongs] = useState(false);
+  const [selectedSongUrl, setSelectedSongUrl] = useState<string | null>(null);
+  const [selectedSongTitle, setSelectedSongTitle] = useState("");
+  const [selectedSongArtist, setSelectedSongArtist] = useState("");
+  const [isSongModalOpen, setIsSongModalOpen] = useState(false);
   const router = useRouter();
 
   // Scroll indicators and layout logic
@@ -67,28 +86,33 @@ export default function Home() {
   }, []);
   
   const { setTutorialStep, completeTutorial } = useTutorial();
-  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setSearchResults([]);
+      setTheoryResults([]);
+      setSongResults([]);
       return;
     }
     
-    setIsSearching(true);
+    // 1. Instant 0ms Theory, Tools & Chord Analysis
+    const matchedTheory = searchTheoryAndConcepts(searchQuery);
+    setTheoryResults(matchedTheory);
+
+    // 2. Fetch Song Chords with Debounce
+    setIsSearchingSongs(true);
     const delayDebounceFn = setTimeout(async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-        const res = await fetch(`${API_URL}/api/v1/search?q=${encodeURIComponent(searchQuery)}`);
-        if (!res.ok) throw new Error("Backend offline");
-        const data = await res.json();
-        setSearchResults(data.results || []);
+        const chordRes = await fetch(`/api/chords/search?q=${encodeURIComponent(searchQuery)}`);
+        if (chordRes.ok) {
+          const chordData = await chordRes.json();
+          setSongResults(chordData.results || []);
+        }
       } catch (err) {
-        console.error("Search API Error", err);
+        console.error("Chord search error", err);
       } finally {
-        setIsSearching(false);
+        setIsSearchingSongs(false);
       }
-    }, 300);
+    }, 250);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery]);
@@ -158,8 +182,21 @@ export default function Home() {
           </div>
         </h1>
 
+        {/* Chord Finder Feature Callout */}
+        <div className="flex flex-col items-center mb-4 max-w-2xl px-4 text-center">
+          {/* Praised 1.5M+ Songs Engine Pill */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-fuchsia-500/20 via-amber-500/20 to-cyan-500/20 border border-fuchsia-500/30 text-fuchsia-200 text-xs font-semibold backdrop-blur-md shadow-[0_0_25px_rgba(217,70,239,0.25)]">
+            <span className="w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse"></span>
+            <span className="tracking-wide">1.5M+ Song Chords &amp; Lyrics Engine</span>
+            <span className="text-zinc-600">•</span>
+            <span className="text-zinc-300">100% Ad-Free</span>
+            <span className="text-zinc-600">•</span>
+            <span className="text-amber-300 font-medium">1-Click Transpose</span>
+          </div>
+        </div>
+
         {/* Global Search Bar */}
-        <div id="global-search-bar" className={`mt-4 relative w-full max-w-2xl group ${tutorialStep === 1 ? 'z-[60]' : 'z-50'}`}>
+        <div id="global-search-bar" className={`mt-2 relative w-full max-w-2xl group ${tutorialStep === 1 ? 'z-[60]' : 'z-50'}`}>
           
           <TutorialTooltip 
             step={1}
@@ -182,10 +219,18 @@ export default function Home() {
               type="text" 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && songResults.length > 0) {
+                  setSelectedSongUrl(songResults[0].tab_url);
+                  setSelectedSongTitle(songResults[0].song_name);
+                  setSelectedSongArtist(songResults[0].artist_name);
+                  setIsSongModalOpen(true);
+                  setIsSearchFocused(false);
+                }
+              }}
               placeholder={placeholderText} 
               className="bg-transparent border-none outline-none flex-1 text-xl text-white placeholder-zinc-400 font-medium tracking-wide"
               onFocus={() => setIsSearchFocused(true)}
-              onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
             />
             {searchQuery ? (
               <div className="flex gap-1.5">
@@ -198,55 +243,342 @@ export default function Home() {
             )}
           </div>
           
-          {/* Library-Style Search Dropdown */}
+          {/* Enhanced Search Dropdown with Song Chords & Theory Tools */}
           <AnimatePresence>
+            {/* Feature Explorer Showcase when focused with empty search */}
+            {isSearchFocused && searchQuery.trim().length === 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-full left-0 right-0 mt-4 bg-[#0a0a0c]/95 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden p-4 z-50 text-left"
+              >
+                <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-2.5 px-2 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Explore Chordyn Features
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-mono">1.5M+ Catalog &amp; Theory</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setSearchQuery("Hotel California")}
+                    className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-orange-500/30 text-left transition-all group flex items-start gap-3 cursor-pointer"
+                  >
+                    <div className="w-8 h-8 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 shrink-0 group-hover:scale-105 transition-transform">
+                      <Music className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-white group-hover:text-orange-300 transition-colors">
+                        Song Chords &amp; Synced Lyrics
+                      </div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">
+                        Try <span className="text-zinc-300 underline underline-offset-2">Hotel California</span>, <span className="text-zinc-300 underline underline-offset-2">Creep</span>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => setSearchQuery("Cmaj7")}
+                    className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-emerald-500/30 text-left transition-all group flex items-start gap-3 cursor-pointer"
+                  >
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 group-hover:scale-105 transition-transform">
+                      <Piano className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-white group-hover:text-emerald-300 transition-colors">
+                        Piano &amp; Guitar Voicings
+                      </div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">
+                        Try <span className="text-zinc-300 underline underline-offset-2">Cmaj7</span>, <span className="text-zinc-300 underline underline-offset-2">Asus2</span>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => setSearchQuery("Circle of Fifths")}
+                    className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-cyan-500/30 text-left transition-all group flex items-start gap-3 cursor-pointer"
+                  >
+                    <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0 group-hover:scale-105 transition-transform">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-white group-hover:text-cyan-300 transition-colors">
+                        Music Theory &amp; Scales
+                      </div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">
+                        Try <span className="text-zinc-300 underline underline-offset-2">Circle of Fifths</span>, <span className="text-zinc-300 underline underline-offset-2">Dorian</span>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => setSearchQuery("Guitar Tuner")}
+                    className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-amber-500/30 text-left transition-all group flex items-start gap-3 cursor-pointer"
+                  >
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 group-hover:scale-105 transition-transform">
+                      <Guitar className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-white group-hover:text-amber-300 transition-colors">
+                        Interactive Studio Tools
+                      </div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">
+                        Try <span className="text-zinc-300 underline underline-offset-2">Guitar Tuner</span>, <span className="text-zinc-300 underline underline-offset-2">Sandbox</span>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Results Dropdown when typing */}
             {isSearchFocused && searchQuery.trim().length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 10, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.98 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 right-0 mt-4 bg-[#0a0a0a]/95 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden max-h-[450px] overflow-y-auto custom-scrollbar z-50 text-left"
+                className="absolute top-full left-0 right-0 mt-4 bg-[#0a0a0c]/95 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden max-h-[520px] overflow-y-auto custom-scrollbar z-50 text-left"
               >
-                {isSearching ? (
-                   <div className="p-8 text-center text-zinc-400">
-                     <span className="animate-pulse">Searching knowledge base...</span>
-                   </div>
-                ) : searchResults.length > 0 ? (
-                   <div className="p-2">
-                      {searchResults.map((result, i) => (
-                         <Link
-                            key={i}
-                            href={result.href}
-                            className="w-full block text-left p-4 hover:bg-black/5 dark:bg-white/5 rounded-2xl transition-colors border-b border-black/10 dark:border-white/10 last:border-0 group"
-                         >
-                            <div className="flex items-start gap-4">
-                               <div className={`mt-1 p-2.5 rounded-xl ${result.color} border border-white/5 shrink-0`}>
-                                   {result.icon === 'piano' && <Piano className="w-5 h-5 text-emerald-400" />}
-                                   {result.icon === 'guitar' && <Guitar className="w-5 h-5 text-fuchsia-400" />}
-                                   {result.icon === 'book' && <BookOpen className="w-5 h-5 text-cyan-400" />}
-                                   {result.icon === 'music' && <Music className="w-5 h-5 text-emerald-400" />}
-                                   {result.icon === 'search' && <Search className="w-5 h-5 text-fuchsia-400" />}
-                                   {result.icon === 'sparkles' && <Sparkles className="w-5 h-5 text-amber-400" />}
-                               </div>
-                               <div className="flex-1 min-w-0">
-                                   <div className="text-[10px] font-bold text-cyan-500/80 mb-1 tracking-widest uppercase truncate">{result.subtitle}</div>
-                                   <div className="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-cyan-400 transition-colors truncate">{result.title}</div>
-                                   {result.snippetHtml && (
-                                      <div 
-                                         className="text-sm text-zinc-600 dark:text-zinc-400 mt-2 font-serif italic line-clamp-2"
-                                         dangerouslySetInnerHTML={{ __html: result.snippetHtml }}
-                                      />
-                                   )}
-                               </div>
+                {/* Filter Tabs Header */}
+                {(theoryResults.length > 0 || songResults.length > 0) && (
+                  <div className="flex items-center gap-1.5 p-3 pb-2.5 border-b border-white/10 bg-black/40">
+                    <button
+                      onClick={() => setSearchFilter("all")}
+                      className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                        searchFilter === "all"
+                          ? "bg-white/15 text-white border border-white/20 shadow-sm"
+                          : "text-zinc-400 hover:text-white"
+                      }`}
+                    >
+                      All ({theoryResults.length + songResults.length})
+                    </button>
+                    {theoryResults.length > 0 && (
+                      <button
+                        onClick={() => setSearchFilter("theory")}
+                        className={`flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                          searchFilter === "theory"
+                            ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
+                            : "text-zinc-400 hover:text-cyan-300"
+                        }`}
+                      >
+                        <Sparkles className="w-3 h-3 text-cyan-400" /> Theory & Concepts ({theoryResults.length})
+                      </button>
+                    )}
+                    {songResults.length > 0 && (
+                      <button
+                        onClick={() => setSearchFilter("songs")}
+                        className={`flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                          searchFilter === "songs"
+                            ? "bg-orange-500/20 text-orange-300 border border-orange-500/30 shadow-sm"
+                            : "text-zinc-400 hover:text-orange-300"
+                        }`}
+                      >
+                        <Music className="w-3 h-3 text-orange-400" /> Songs ({songResults.length})
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {/* 1. Theory Concepts & Tools (Instant 0ms) */}
+                {(searchFilter === "all" || searchFilter === "theory") && theoryResults.length > 0 && (
+                  <div className="p-3 border-b border-white/10">
+                    <div className="px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase text-cyan-400 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5" /> Theory, Concepts & Tools
+                      </span>
+                      <span className="text-[10px] text-zinc-500 font-mono">Instant Result</span>
+                    </div>
+                    <div className="space-y-1.5 mt-1">
+                      {theoryResults.map((result, i) => {
+                        const isChord = result.type === "chord";
+
+                        if (isChord) {
+                          return (
+                            <div
+                              key={`theory-${i}`}
+                              className="w-full text-left p-4 rounded-2xl transition-all border bg-gradient-to-br from-amber-500/[0.08] via-[#141210] to-black border-amber-500/30 shadow-[0_0_25px_rgba(245,158,11,0.08)] mb-2"
+                            >
+                              <div className="flex items-start justify-between gap-3 mb-2.5">
+                                <div className="flex items-center gap-3">
+                                  <div className="p-2.5 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 shrink-0">
+                                    <Music className="w-5 h-5" />
+                                  </div>
+                                  <div>
+                                    <div className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">
+                                      Verified Chord Formula
+                                    </div>
+                                    <div className="text-lg font-black text-amber-200">
+                                      {result.title}
+                                    </div>
+                                  </div>
+                                </div>
+                                <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 font-semibold font-mono">
+                                  {result.subtitle.split("•")[0]?.trim()}
+                                </span>
+                              </div>
+
+                              {result.snippetHtml && (
+                                <div
+                                  className="text-xs text-zinc-300 font-mono mb-3 bg-black/50 px-3 py-1.5 rounded-xl border border-white/5"
+                                  dangerouslySetInnerHTML={{ __html: result.snippetHtml }}
+                                />
+                              )}
+
+                              {/* Dual Piano & Guitar Buttons with Auto-Selection */}
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-white/10">
+                                <Link
+                                  href={result.pianoHref || "/piano"}
+                                  onClick={() => setIsSearchFocused(false)}
+                                  className="flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 hover:text-emerald-200 transition-all group/piano cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(16,185,129,0.25)]"
+                                >
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="p-1 rounded-lg bg-emerald-500/20 text-emerald-400 group-hover/piano:scale-110 transition-transform">
+                                      <Piano className="w-4 h-4" />
+                                    </div>
+                                    <div className="text-left">
+                                      <div className="text-xs font-bold leading-none">Piano Suite</div>
+                                      <div className="text-[10px] text-zinc-400 font-medium mt-0.5">Auto-selects keys & voicings</div>
+                                    </div>
+                                  </div>
+                                  <ArrowRight className="w-3.5 h-3.5 text-emerald-400 group-hover/piano:translate-x-1 transition-transform" />
+                                </Link>
+
+                                <Link
+                                  href={result.guitarHref || "/guitar"}
+                                  onClick={() => setIsSearchFocused(false)}
+                                  className="flex items-center justify-between p-2.5 rounded-xl bg-fuchsia-500/10 hover:bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-300 hover:text-fuchsia-200 transition-all group/guitar cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(217,70,239,0.25)]"
+                                >
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="p-1 rounded-lg bg-fuchsia-500/20 text-fuchsia-400 group-hover/guitar:scale-110 transition-transform">
+                                      <Guitar className="w-4 h-4" />
+                                    </div>
+                                    <div className="text-left">
+                                      <div className="text-xs font-bold leading-none">Guitar Suite</div>
+                                      <div className="text-[10px] text-zinc-400 font-medium mt-0.5">Auto-selects fretboard & CAGED</div>
+                                    </div>
+                                  </div>
+                                  <ArrowRight className="w-3.5 h-3.5 text-fuchsia-400 group-hover/guitar:translate-x-1 transition-transform" />
+                                </Link>
+                              </div>
                             </div>
-                         </Link>
+                          );
+                        }
+
+                        return (
+                          <Link
+                            key={`theory-${i}`}
+                            href={result.href}
+                            onClick={() => setIsSearchFocused(false)}
+                            className="w-full block text-left p-3.5 rounded-2xl transition-all border group hover:bg-white/10 border-transparent hover:border-cyan-500/30"
+                          >
+                            <div className="flex items-start gap-3.5">
+                              <div
+                                className={`mt-0.5 p-2.5 rounded-xl ${result.color} border border-white/10 shrink-0`}
+                              >
+                                {result.icon === "piano" && <Piano className="w-5 h-5 text-emerald-400" />}
+                                {result.icon === "guitar" && <Guitar className="w-5 h-5 text-fuchsia-400" />}
+                                {result.icon === "book" && <BookOpen className="w-5 h-5 text-cyan-400" />}
+                                {result.icon === "music" && <Music className="w-5 h-5 text-amber-400" />}
+                                {result.icon === "search" && <Search className="w-5 h-5 text-fuchsia-400" />}
+                                {result.icon === "sparkles" && <Sparkles className="w-5 h-5 text-amber-400" />}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-2">
+                                  <div className="text-[10px] font-bold text-cyan-400 mb-0.5 tracking-widest uppercase truncate">
+                                    {result.subtitle}
+                                  </div>
+                                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 font-medium">
+                                    {result.category}
+                                  </span>
+                                </div>
+                                <div
+                                  className="text-base font-bold transition-colors truncate text-white group-hover:text-cyan-400"
+                                >
+                                  {result.title}
+                                </div>
+                                {result.snippetHtml && (
+                                  <div
+                                    className="text-xs text-zinc-400 mt-1 italic line-clamp-2"
+                                    dangerouslySetInnerHTML={{ __html: result.snippetHtml }}
+                                  />
+                                )}
+                              </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. Song Chords Section */}
+                {(searchFilter === "all" || searchFilter === "songs") && songResults.length > 0 && (
+                  <div className="p-3">
+                    <div className="px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase text-orange-400 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Music className="w-3.5 h-3.5" /> Verified Songs & Chords
+                      </span>
+                      <span className="text-[10px] text-zinc-500 font-mono">1.5M+ Library</span>
+                    </div>
+                    <div className="space-y-1 mt-1">
+                      {songResults.map((song, i) => (
+                        <button
+                          key={`song-${i}`}
+                          onClick={() => {
+                            setSelectedSongUrl(song.tab_url);
+                            setSelectedSongTitle(song.song_name);
+                            setSelectedSongArtist(song.artist_name);
+                            setIsSongModalOpen(true);
+                            setIsSearchFocused(false);
+                          }}
+                          className="w-full text-left p-3.5 hover:bg-white/10 rounded-2xl transition-all border border-transparent hover:border-orange-500/30 flex items-center justify-between group cursor-pointer"
+                        >
+                          <div className="flex items-center gap-3.5 min-w-0">
+                            <div className="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 group-hover:scale-105 group-hover:bg-orange-500/20 transition-all shrink-0">
+                              <Music className="w-5 h-5" />
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-base font-bold text-white group-hover:text-orange-300 transition-colors truncate">
+                                {song.song_name}
+                              </div>
+                              <div className="text-xs text-zinc-400 truncate">
+                                {song.artist_name}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2 shrink-0 ml-3">
+                            {song.rating > 0 && (
+                              <span className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-300 text-xs font-semibold">
+                                <Star className="w-3 h-3 fill-orange-400 text-orange-400" />
+                                {song.rating}
+                              </span>
+                            )}
+                            <span className="px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 text-zinc-400 text-[11px] font-mono hidden sm:inline">
+                              Chords
+                            </span>
+                          </div>
+                        </button>
                       ))}
-                   </div>
-                ) : (
-                   <div className="p-8 text-center text-zinc-600 dark:text-zinc-400">
-                      No results found for <span className="text-zinc-900 dark:text-white">"{searchQuery}"</span>
-                   </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Loading state for Songs */}
+                {isSearchingSongs && songResults.length === 0 && (
+                  <div className="p-4 text-center text-zinc-400 flex items-center justify-center gap-2 border-t border-white/5 text-xs">
+                    <div className="w-3.5 h-3.5 rounded-full border-2 border-orange-500 border-t-transparent animate-spin" />
+                    <span>Searching song chord library...</span>
+                  </div>
+                )}
+
+                {/* Empty State */}
+                {!isSearchingSongs && songResults.length === 0 && theoryResults.length === 0 && (
+                  <div className="p-8 text-center text-zinc-400">
+                    No chords, theory concepts, or songs found for <span className="text-white font-semibold">"{searchQuery}"</span>
+                  </div>
                 )}
               </motion.div>
             )}
@@ -298,7 +630,7 @@ export default function Home() {
                     {[
                       { title: "Piano Sandbox", subtitle: "Interactive builder", href: "/piano#sandbox", icon: <Piano className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />, color: "bg-emerald-500/10 hover:bg-emerald-500/20", borderColor: "border-emerald-500/30", glow: "shadow-[0_0_15px_rgba(16,185,129,0.4)]", isStep3: true },
                       { title: "Guitar Tuner", subtitle: "Chromatic tuner", href: "/guitar#tuner", icon: <Guitar className="w-5 h-5 md:w-6 md:h-6 text-fuchsia-400" />, color: "bg-fuchsia-500/10 hover:bg-fuchsia-500/20", borderColor: "border-fuchsia-500/30", glow: "shadow-[0_0_15px_rgba(217,70,239,0.4)]" },
-                      { title: "Chord Finder", subtitle: "Dictionary & Voicings", href: "/piano#dictionary", icon: <Layers className="w-5 h-5 md:w-6 md:h-6 text-amber-400" />, color: "bg-amber-500/10 hover:bg-amber-500/20", borderColor: "border-amber-500/30", glow: "shadow-[0_0_15px_rgba(245,158,11,0.4)]" },
+                      { title: "Song Chords", subtitle: "1.5M+ Catalog", href: "/#song-chords-engine", icon: <Music className="w-5 h-5 md:w-6 md:h-6 text-orange-400" />, color: "bg-orange-500/10 hover:bg-orange-500/20", borderColor: "border-orange-500/30", glow: "shadow-[0_0_15px_rgba(249,115,22,0.4)]" },
                       { title: "Theory Library", subtitle: "Knowledge base", href: "/library", icon: <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />, color: "bg-cyan-500/10 hover:bg-cyan-500/20", borderColor: "border-cyan-500/30", glow: "shadow-[0_0_15px_rgba(6,182,212,0.4)]" },
                       { title: "Scale Matrix", subtitle: "Visual explorer", href: "/guitar#fretboard", icon: <Activity className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />, color: "bg-blue-500/10 hover:bg-blue-500/20", borderColor: "border-blue-500/30", glow: "shadow-[0_0_15px_rgba(59,130,246,0.4)]" },
                       { title: "Ear Trainer", subtitle: "Pitch practice", href: "/library/module-11/m11-c1", icon: <AudioLines className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />, color: "bg-indigo-500/10 hover:bg-indigo-500/20", borderColor: "border-indigo-500/30", glow: "shadow-[0_0_15px_rgba(99,102,241,0.4)]" },
@@ -356,6 +688,232 @@ export default function Home() {
            <ChevronDown className="w-5 h-5 text-zinc-400" />
          </motion.div>
        </motion.div>
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* SECTION 1: SONG CHORDS & LYRICS ENGINE                        */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <motion.section
+        id="song-chords-engine"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 w-full overflow-hidden pt-16 pb-28 -mt-20"
+      >
+        {/* Animated Sound Waveform Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 flex items-center justify-center opacity-25">
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-orange-600/15 via-amber-500/10 to-transparent blur-[160px] rounded-full pointer-events-none"></div>
+
+          <svg className="absolute w-[120%] h-full" viewBox="0 0 1000 400" preserveAspectRatio="none">
+            {isMounted && [...Array(32)].map((_, i) => {
+              const x = 50 + i * 29;
+              const baseHeight = 35 + (Math.sin(i * 0.4) * 30 + 30);
+              const delay = getPseudoRandom(i * 5) * 2;
+              return (
+                <motion.rect
+                  key={`eq-bar-${i}`}
+                  x={x}
+                  y={200 - baseHeight / 2}
+                  width="4"
+                  height={baseHeight}
+                  rx="2"
+                  fill="#f97316"
+                  opacity={0.3}
+                  whileInView={{
+                    height: [baseHeight * 0.4, baseHeight * 1.5, baseHeight * 0.7, baseHeight * 1.3, baseHeight * 0.4],
+                    y: [
+                      200 - (baseHeight * 0.4) / 2,
+                      200 - (baseHeight * 1.5) / 2,
+                      200 - (baseHeight * 0.7) / 2,
+                      200 - (baseHeight * 1.3) / 2,
+                      200 - (baseHeight * 0.4) / 2,
+                    ],
+                  }}
+                  viewport={{ once: false, amount: 0 }}
+                  transition={{
+                    duration: 1.8 + getPseudoRandom(i) * 1.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: delay,
+                  }}
+                  style={{ filter: "drop-shadow(0 0 6px rgba(249,115,22,0.4))" }}
+                />
+              );
+            })}
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 md:px-16 pt-20 pb-40 relative z-10">
+          {/* One-line title */}
+          <div className="text-center mb-20">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] tracking-tighter leading-[1.05] mb-6">
+              <span className="font-extrabold text-white">Song Chords. </span>
+              <span
+                className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#f97316,#fbbf24,#ffffff,#fbbf24,#f97316)] bg-[length:200%_auto] drop-shadow-[0_0_20px_rgba(249,115,22,0.8)]"
+                style={{ animation: "flow 2s linear infinite" }}
+              >
+                Play in any key.
+              </span>
+            </h2>
+            <p className="text-lg text-zinc-500 font-light max-w-xl mx-auto">
+              Instant chord sheets for 1.5M+ songs with synced lyrics, one-click vocal key transposition, and interactive guitar &amp; piano voicings.
+            </p>
+          </div>
+
+          <div className="flex flex-col lg:flex-row items-center gap-20">
+            {/* Interactive Song Widget */}
+            <div className="flex-1 w-full relative">
+              <div className="relative w-full max-w-xl mx-auto">
+                <div className="absolute -inset-10 bg-orange-500/10 blur-[80px] rounded-full"></div>
+
+                <div className="relative rounded-[2.5rem] bg-black/60 border border-orange-500/15 backdrop-blur-md p-6 sm:p-8 shadow-[0_0_80px_rgba(249,115,22,0.1)]">
+                  {/* Song Header */}
+                  <div className="flex items-center justify-between pb-4 border-b border-white/10 gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500/20 to-amber-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
+                        <Music className="w-5 h-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="text-base sm:text-lg font-black text-white truncate">Hotel California — Eagles</h4>
+                        <div className="text-[11px] text-zinc-400 font-mono">Original Key: Bm • Capo: Fret 7</div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20 font-mono shrink-0">
+                      100% Ad-Free
+                    </span>
+                  </div>
+
+                  {/* Lyrics & Chords interactive block */}
+                  <div className="py-6 font-mono text-sm sm:text-base space-y-3">
+                    <div className="text-[11px] font-sans text-orange-400/90 italic mb-1 flex items-center justify-between">
+                      <span>💡 Hover any chord to audition guitar &amp; piano voicings:</span>
+                      <span className="text-[10px] text-zinc-500 font-mono">Original Key: Bm</span>
+                    </div>
+                    <div className="p-5 rounded-2xl bg-black/40 border border-orange-500/15 space-y-4">
+                      {/* Line 1 */}
+                      <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="Bm" />
+                          <span className="text-zinc-100 font-mono text-sm sm:text-base mt-1">On a dark desert highway,</span>
+                        </div>
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="F#7" />
+                          <span className="text-zinc-200 font-mono text-sm sm:text-base mt-1">cool wind in my hair</span>
+                        </div>
+                      </div>
+
+                      {/* Line 2 */}
+                      <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="A" />
+                          <span className="text-zinc-100 font-mono text-sm sm:text-base mt-1">Warm smell of colitas,</span>
+                        </div>
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="E" />
+                          <span className="text-zinc-200 font-mono text-sm sm:text-base mt-1">rising up through the air</span>
+                        </div>
+                      </div>
+
+                      {/* Line 3 */}
+                      <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="G" />
+                          <span className="text-zinc-100 font-mono text-sm sm:text-base mt-1">Up ahead in the distance,</span>
+                        </div>
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="D" />
+                          <span className="text-zinc-200 font-mono text-sm sm:text-base mt-1">I saw a shimmering light</span>
+                        </div>
+                      </div>
+
+                      {/* Line 4 */}
+                      <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="Em" />
+                          <span className="text-zinc-100 font-mono text-sm sm:text-base mt-1">My head grew heavy and my sight grew dim,</span>
+                        </div>
+                        <div className="flex flex-col items-start">
+                          <ChordPill chord="F#7" />
+                          <span className="text-zinc-200 font-mono text-sm sm:text-base mt-1">I had to stop for the night</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quick song pill launchers */}
+                  <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] text-zinc-500 uppercase tracking-wider font-semibold">Try:</span>
+                    {[
+                      { name: "Creep", artist: "Radiohead", url: "https://tabs.ultimate-guitar.com/tab/radiohead/creep-chords-4169" },
+                      { name: "Shape of You", artist: "Ed Sheeran", url: "https://tabs.ultimate-guitar.com/tab/ed-sheeran/shape-of-you-chords-1928431" },
+                      { name: "Bohemian Rhapsody", artist: "Queen", url: "https://tabs.ultimate-guitar.com/tab/queen/bohemian-rhapsody-chords-40606" },
+                      { name: "Let It Be", artist: "The Beatles", url: "https://tabs.ultimate-guitar.com/tab/the-beatles/let-it-be-chords-17427" },
+                      { name: "Kesariya", artist: "Arijit Singh", url: "https://tabs.ultimate-guitar.com/tab/4275298" },
+                    ].map((song, sIdx) => (
+                      <button
+                        key={sIdx}
+                        onClick={() => {
+                          setSelectedSongUrl(song.url);
+                          setSelectedSongTitle(song.name);
+                          setSelectedSongArtist(song.artist);
+                          setIsSongModalOpen(true);
+                        }}
+                        className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/15 border border-white/10 hover:border-orange-500/40 text-[11px] font-semibold text-zinc-300 hover:text-white transition-all flex items-center gap-1 cursor-pointer"
+                      >
+                        <Music className="w-3 h-3 text-orange-400" />
+                        <span>{song.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Features & Action Button */}
+            <div className="flex-1 space-y-10">
+              {[
+                { icon: <Zap className="w-5 h-5" />, title: "Zero Ads & Clutter", desc: "No video ads interrupting your rehearsal, no paywall barriers. Just pure, clean chords and synced lyrics for seamless jamming." },
+                { icon: <ArrowRight className="w-5 h-5" />, title: "1-Click Vocal Transposition", desc: "Shift keys up or down in real-time to match any vocalist's natural range or capo placement without breaking formatting." },
+                { icon: <Piano className="w-5 h-5" />, title: "Dual Guitar & Piano Voicings", desc: "Hover or tap any chord to view both standard 6-string guitar shapes and 88-key piano voicings with true instrument audio." },
+                { icon: <AudioLines className="w-5 h-5" />, title: "Hands-Free Auto-Scroll", desc: "Never take your hands off your guitar neck or keyboard to scroll. Toggle smooth automatic scrolling with custom adjustable speed." },
+              ].map((feature, i) => (
+                <motion.div key={i} initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }} className="flex gap-5 items-start group">
+                  <div className="mt-1 p-2.5 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20 group-hover:bg-orange-500/20 transition-colors shrink-0">{feature.icon}</div>
+                  <div>
+                    <h3 className="text-white font-bold text-lg mb-1">{feature.title}</h3>
+                    <p className="text-zinc-500 font-light leading-relaxed text-[15px]">{feature.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+
+              <div className="relative inline-flex mt-6 group transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_10px_30px_rgba(249,115,22,0.4)] active:scale-95 rounded-full">
+                <div className="absolute -inset-[1.5px] rounded-full overflow-hidden opacity-70 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute -inset-[300%]" style={{ backgroundImage: 'conic-gradient(from 0deg, #ea580c 0%, #f97316 12.5%, #ffffff 25%, #f97316 37.5%, #ea580c 50%, #f97316 62.5%, #ffffff 75%, #f97316 87.5%, #ea580c 100%)', animation: 'spin 3s linear infinite' }}></div>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedSongUrl("https://tabs.ultimate-guitar.com/tab/eagles/hotel-california-chords-46190");
+                    setSelectedSongTitle("Hotel California");
+                    setSelectedSongArtist("Eagles");
+                    setIsSongModalOpen(true);
+                  }}
+                  className="relative flex items-center gap-3 px-8 py-4 bg-zinc-950 text-white font-black rounded-full transition-colors duration-300 text-lg cursor-pointer"
+                >
+                  Open Song Sheet <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Section Divider into Piano Suite */}
+      <div className="w-full flex justify-center py-12 relative z-20">
+         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-3/4 h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
+         </div>
+         <div className="w-2 h-2 rounded-full bg-black border border-orange-500/30 z-10 shadow-[0_0_10px_rgba(249,115,22,0.2)]"></div>
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════ */}
@@ -908,14 +1466,23 @@ export default function Home() {
                 <div className="absolute -inset-[1.5px] rounded-full overflow-hidden opacity-70 group-hover:opacity-100 transition-opacity">
                    <div className="absolute -inset-[300%]" style={{ backgroundImage: 'conic-gradient(from 0deg, #0e7490 0%, #06b6d4 12.5%, #ffffff 25%, #06b6d4 37.5%, #0e7490 50%, #06b6d4 62.5%, #ffffff 75%, #06b6d4 87.5%, #0e7490 100%)', animation: 'spin 3s linear infinite' }}></div>
                 </div>
-                <Link href="/theory" className="relative flex items-center gap-3 px-8 py-4 bg-zinc-950 text-white font-black rounded-full transition-colors duration-300 text-lg">
-                  Enter the Library <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <Link href="/library" className="relative flex items-center gap-3 px-8 py-4 bg-zinc-950 text-white font-black rounded-full transition-colors duration-300 text-lg">
+                  Explore Learn & Theory <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </motion.section>
+
+      {/* Interactive Song Sheet Modal */}
+      <SongSheetModal
+        isOpen={isSongModalOpen}
+        onClose={() => setIsSongModalOpen(false)}
+        tabUrl={selectedSongUrl || ""}
+        initialTitle={selectedSongTitle}
+        initialArtist={selectedSongArtist}
+      />
     </main>
   );
 }

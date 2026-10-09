@@ -6,6 +6,7 @@ import { Play, Minus, Plus, ArrowLeftRight, Sparkles, BookOpen, Piano, ChevronDo
 import { motion } from "framer-motion";
 import PianoKeyboard from "./PianoKeyboard";
 import * as Tone from "tone";
+import { useSearchParams } from "next/navigation";
 
 const ROOTS = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B"];
 const QUALITIES = [
@@ -166,6 +167,7 @@ interface PianoChordLibraryProps {
 }
 
 export default function PianoChordLibrary({ onInjectProgression }: PianoChordLibraryProps) {
+  const searchParams = useSearchParams();
   const [root, setRoot] = useState("C");
   const [quality, setQuality] = useState("maj");
   const [octave, setOctave] = useState(4);
@@ -174,6 +176,49 @@ export default function PianoChordLibrary({ onInjectProgression }: PianoChordLib
   const [chordInfo, setChordInfo] = useState<any>(null);
   const [activeNotes, setActiveNotes] = useState<string[]>([]);
   const [error, setError] = useState("");
+
+  // Auto-select chord from URL query params (e.g. /piano?root=C&quality=maj7#dictionary)
+  useEffect(() => {
+    if (!searchParams) return;
+    const paramRoot = searchParams.get("root");
+    const paramQuality = searchParams.get("quality");
+
+    let changed = false;
+    if (paramRoot) {
+      const rLower = paramRoot.toLowerCase();
+      const matchedRoot = ROOTS.find(r => r.toLowerCase() === rLower);
+      if (matchedRoot) {
+        setRoot(matchedRoot);
+        changed = true;
+      }
+    }
+
+    if (paramQuality) {
+      const qLower = paramQuality.toLowerCase();
+      const matchedQ = QUALITIES.find(q => q.value.toLowerCase() === qLower);
+      if (matchedQ) {
+        setQuality(matchedQ.value);
+        changed = true;
+      } else {
+        if (qLower === "m" || qLower === "min" || qLower === "-") {
+          setQuality("minor");
+          changed = true;
+        } else if (qLower === "major") {
+          setQuality("maj");
+          changed = true;
+        }
+      }
+    }
+
+    if (changed) {
+      setTimeout(() => {
+        const dictEl = document.getElementById("dictionary");
+        if (dictEl) {
+          dictEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 150);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     try {

@@ -5,6 +5,7 @@ import { Chord, Note, Interval, Progression, Key } from "@tonaljs/tonal";
 import { ChevronDown, Play, Plus, Minus, Info, Music, Hash, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Tone from "tone";
+import { useSearchParams } from "next/navigation";
 
 const ROOTS = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B"];
 const QUALITIES = [
@@ -57,9 +58,53 @@ const TUNINGS: Record<string, string[]> = {
 const getChroma = (noteName: string) => Note.chroma(noteName);
 
 export default function GuitarFretboard() {
+  const searchParams = useSearchParams();
   const [root, setRoot] = useState("C");
   const [quality, setQuality] = useState("maj");
   const [tuningName, setTuningName] = useState("Standard");
+
+  // Auto-select chord from URL query params (e.g. /guitar?root=C&quality=maj7#fretboard)
+  useEffect(() => {
+    if (!searchParams) return;
+    const paramRoot = searchParams.get("root");
+    const paramQuality = searchParams.get("quality");
+
+    let changed = false;
+    if (paramRoot) {
+      const rLower = paramRoot.toLowerCase();
+      const matchedRoot = ROOTS.find(r => r.toLowerCase() === rLower);
+      if (matchedRoot) {
+        setRoot(matchedRoot);
+        changed = true;
+      }
+    }
+
+    if (paramQuality) {
+      const qLower = paramQuality.toLowerCase();
+      const matchedQ = QUALITIES.find(q => q.value.toLowerCase() === qLower);
+      if (matchedQ) {
+        setQuality(matchedQ.value);
+        changed = true;
+      } else {
+        if (qLower === "m" || qLower === "min" || qLower === "-") {
+          setQuality("minor");
+          changed = true;
+        } else if (qLower === "major") {
+          setQuality("maj");
+          changed = true;
+        }
+      }
+    }
+
+    if (changed) {
+      setTimeout(() => {
+        const fretEl = document.getElementById("fretboard");
+        if (fretEl) {
+          fretEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 150);
+    }
+  }, [searchParams]);
 
   const NUM_FRETS = 15;
   const currentTuning = TUNINGS[tuningName];

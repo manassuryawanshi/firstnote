@@ -41,3 +41,27 @@ export const getGrandPianoSampler = (onLoad?: () => void) => {
   sampler.volume.value = -2; // slightly louder piano
   return sampler;
 };
+
+export const getAcousticGuitarSampler = (onLoad?: () => void) => {
+  const GUITAR_BASE = "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_steel-mp3/";
+  const sampler = new Tone.Sampler({
+    urls: {
+      "A2": GUITAR_BASE + "A2.mp3",
+      "C3": GUITAR_BASE + "C3.mp3",
+      "E3": GUITAR_BASE + "E3.mp3",
+      "G3": GUITAR_BASE + "G3.mp3",
+      "A3": GUITAR_BASE + "A3.mp3",
+      "C4": GUITAR_BASE + "C4.mp3",
+      "E4": GUITAR_BASE + "E4.mp3",
+      "G4": GUITAR_BASE + "G4.mp3",
+      "A4": GUITAR_BASE + "A4.mp3",
+      "C5": GUITAR_BASE + "C5.mp3",
+      "E5": GUITAR_BASE + "E5.mp3",
+    },
+    release: 2,
+    onload: onLoad
+  }).toDestination();
+  
+  sampler.volume.value = 5; // boost acoustic steel guitar
+  return sampler;
+};

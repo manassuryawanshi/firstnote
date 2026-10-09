@@ -11,7 +11,7 @@ export default function BottomNav() {
     { name: "Home", href: "/", icon: Home, activeColor: "text-orange-500", glow: "shadow-[0_0_15px_rgba(249,115,22,0.8)]" },
     { name: "Piano", href: "/piano", icon: Piano, activeColor: "text-green-500", glow: "shadow-[0_0_15px_rgba(34,197,94,0.8)]" },
     { name: "Guitar", href: "/guitar", icon: Guitar, activeColor: "text-fuchsia-500", glow: "shadow-[0_0_15px_rgba(217,70,239,0.8)]" },
-    { name: "Library", href: "/library", icon: BookOpen, activeColor: "text-cyan-500", glow: "shadow-[0_0_15px_rgba(6,182,212,0.8)]" },
+    { name: "Learn", href: "/library", icon: BookOpen, activeColor: "text-cyan-500", glow: "shadow-[0_0_15px_rgba(6,182,212,0.8)]" },
   ];
 
   return (

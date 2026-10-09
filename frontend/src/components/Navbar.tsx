@@ -38,7 +38,7 @@ export default function Navbar() {
     { name: "Home", href: "/", activeGradient: "text-transparent bg-clip-text bg-[linear-gradient(to_right,#ef4444,#f97316,#ffffff,#f97316,#ef4444)] bg-[length:200%_auto] drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]" },
     { name: "Piano", href: "/piano", activeGradient: "text-transparent bg-clip-text bg-[linear-gradient(to_right,#22c55e,#4ade80,#ffffff,#4ade80,#22c55e)] bg-[length:200%_auto] drop-shadow-[0_0_15px_rgba(34,197,94,0.8)]" },
     { name: "Guitar", href: "/guitar", activeGradient: "text-transparent bg-clip-text bg-[linear-gradient(to_right,#d946ef,#f472b6,#ffffff,#f472b6,#d946ef)] bg-[length:200%_auto] drop-shadow-[0_0_15px_rgba(217,70,239,0.8)]" },
-    { name: "Library", href: "/library", activeGradient: "text-transparent bg-clip-text bg-[linear-gradient(to_right,#06b6d4,#3b82f6,#ffffff,#3b82f6,#06b6d4)] bg-[length:200%_auto] drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]" },
+    { name: "Learn", href: "/library", activeGradient: "text-transparent bg-clip-text bg-[linear-gradient(to_right,#06b6d4,#3b82f6,#ffffff,#3b82f6,#06b6d4)] bg-[length:200%_auto] drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]" },
   ];
 
   return (
@@ -83,7 +83,7 @@ export default function Navbar() {
           })}
         </div>
         <div className="flex items-center gap-4">
-           <Link href="/#piano-suite-section" className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest bg-white/10 border border-white/20 text-white rounded-full hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 backdrop-blur-md">
+           <Link href="/#song-chords-engine" className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest bg-white/10 border border-white/20 text-white rounded-full hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 backdrop-blur-md">
              Explore
            </Link>
         </div>

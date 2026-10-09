@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Piano } from "lucide-react";
 import PianoChordLibrary from "@/components/piano/PianoChordLibrary";
@@ -123,7 +123,9 @@ export default function PianoPage() {
                  </h2>
                  <p className="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl font-light max-w-2xl leading-relaxed">Search for complex chords, understand their theory, and map fingerings with precision.</p>
               </div>
-              <PianoChordLibrary onInjectProgression={setInjectedProgression} />
+              <Suspense fallback={<div className="h-64 flex items-center justify-center text-zinc-500 text-sm">Loading chord dictionary...</div>}>
+                <PianoChordLibrary onInjectProgression={setInjectedProgression} />
+              </Suspense>
            </motion.section>
            
            {/* Section 2: Sandbox */}

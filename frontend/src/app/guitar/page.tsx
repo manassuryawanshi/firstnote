@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Guitar, Sparkles, Layers, Activity, Music, Flame, Cable } from "lucide-react";
 import GuitarTuner from "@/components/GuitarTuner";
@@ -208,7 +208,9 @@ export default function GuitarPage() {
                  </h2>
                  <p className="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl font-light max-w-2xl leading-relaxed">Select any chord and visualize exactly how to play it. Isolate voicings, change tunings, and unlock the neck.</p>
               </div>
-              <GuitarFretboard />
+              <Suspense fallback={<div className="h-64 flex items-center justify-center text-zinc-500 text-sm">Loading dynamic fretboard...</div>}>
+                <GuitarFretboard />
+              </Suspense>
            </motion.section>
 
            {/* Section 3: Sandbox */}
