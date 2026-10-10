@@ -1,11 +1,64 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Home, Piano, Guitar, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const isTextInput = (el: Element | null): boolean => {
+      if (!el) return false;
+      if (el instanceof HTMLInputElement) {
+        const type = el.type.toLowerCase();
+        return !["checkbox", "radio", "range", "button", "submit", "file", "color", "image", "reset"].includes(type);
+      }
+      if (el instanceof HTMLTextAreaElement) return true;
+      if (el instanceof HTMLElement && el.isContentEditable) return true;
+      return false;
+    };
+
+    const updateKeyboardState = () => {
+      const activeEl = document.activeElement;
+      const inputFocused = isTextInput(activeEl);
+
+      // Check visual viewport height drop (standard virtual keyboard behavior on mobile browsers)
+      const vv = window.visualViewport;
+      const viewportShrunk = vv ? (window.innerHeight - vv.height > 120) : false;
+
+      setIsKeyboardVisible(Boolean(inputFocused || viewportShrunk));
+    };
+
+    const handleFocusIn = (e: FocusEvent) => {
+      if (isTextInput(e.target as Element)) {
+        setIsKeyboardVisible(true);
+      }
+    };
+
+    const handleFocusOut = () => {
+      // Small timeout to allow activeElement / visualViewport to update
+      setTimeout(updateKeyboardState, 60);
+    };
+
+    window.addEventListener("focusin", handleFocusIn);
+    window.addEventListener("focusout", handleFocusOut);
+
+    const vv = window.visualViewport;
+    if (vv) {
+      vv.addEventListener("resize", updateKeyboardState);
+    }
+
+    return () => {
+      window.removeEventListener("focusin", handleFocusIn);
+      window.removeEventListener("focusout", handleFocusOut);
+      if (vv) {
+        vv.removeEventListener("resize", updateKeyboardState);
+      }
+    };
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "/", icon: Home, activeColor: "text-orange-500", glow: "shadow-[0_0_15px_rgba(249,115,22,0.8)]" },
@@ -15,7 +68,14 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-2">
+    <div 
+      className={`md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-2 transition-all duration-300 ease-in-out ${
+        isKeyboardVisible 
+          ? "translate-y-32 opacity-0 pointer-events-none" 
+          : "translate-y-0 opacity-100 pointer-events-auto"
+      }`}
+      aria-hidden={isKeyboardVisible}
+    >
       <div className="flex items-center justify-around bg-black/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-2 shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
@@ -41,3 +101,4 @@ export default function BottomNav() {
     </div>
   );
 }
+

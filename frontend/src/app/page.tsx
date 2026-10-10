@@ -71,6 +71,10 @@ export default function Home() {
       
       if (searchContainer && !searchContainer.contains(e.target as Node)) {
         setIsSearchFocused(false);
+        const active = document.activeElement as HTMLElement | null;
+        if (active && searchContainer.contains(active)) {
+          active.blur();
+        }
       }
       
       if (quickToolsContainer && !quickToolsContainer.contains(e.target as Node)) {
