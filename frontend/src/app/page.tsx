@@ -33,7 +33,7 @@ const getPseudoRandom = (seed: number) => {
 };
 
 export default function Home() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState("Artists");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   
@@ -171,36 +171,45 @@ export default function Home() {
       {/* Hero Section */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 w-full text-center pb-[35vh]">
         <TutorialOverlay activeSteps={[1, 2, 3]} />
-        <h1 className="text-[2rem] min-[360px]:text-[2.25rem] min-[390px]:text-4xl sm:text-6xl md:text-7xl lg:text-[6.5rem] tracking-tighter text-center leading-[0.95] sm:leading-[0.9] mb-8 px-4 whitespace-normal md:whitespace-nowrap">
+        <h1 className="text-[2rem] min-[360px]:text-[2.25rem] min-[390px]:text-4xl sm:text-6xl md:text-7xl lg:text-[6.5rem] tracking-tighter text-center leading-[0.95] sm:leading-[0.9] mb-4 sm:mb-6 px-4 whitespace-normal md:whitespace-nowrap">
           <span className="font-extrabold text-white block mb-1 sm:mb-0 whitespace-nowrap">The ultimate toolkit.</span>
           <div className="flex items-center justify-center whitespace-nowrap">
             <span className="font-extrabold text-white mr-2.5 sm:mr-4">for </span>
             <span className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#ef4444,#f97316,#ffffff,#f97316,#ef4444)] bg-[length:200%_auto] pr-1.5 sm:pr-2 drop-shadow-[0_0_20px_rgba(239,68,68,0.8)]" style={{ animation: 'flow 2s linear infinite' }}>
               {text}
             </span>
-            <span className="inline-block w-[4px] sm:w-[6px] h-[0.8em] bg-white animate-pulse rounded-full opacity-80 align-baseline"></span>
+            <span 
+              className="inline-block w-[3px] sm:w-[4px] lg:w-[5px] h-[0.82em] bg-white rounded-[1px] align-baseline animate-cursor-blink"
+              style={{ animation: 'cursorBlink 0.75s step-end infinite' }}
+              aria-hidden="true"
+            ></span>
           </div>
         </h1>
 
-        {/* Chord Finder Feature Callout */}
-        <div className="flex flex-col items-center mb-4 max-w-2xl px-4 text-center">
-          {/* Praised 1.5M+ Songs Engine Pill */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-fuchsia-500/20 via-amber-500/20 to-cyan-500/20 border border-fuchsia-500/30 text-fuchsia-200 text-[10.5px] sm:text-xs font-semibold backdrop-blur-md shadow-[0_0_25px_rgba(217,70,239,0.25)] whitespace-nowrap">
+        {/* Hero Supporting Subtitle */}
+        <p className="text-[15px] sm:text-lg md:text-[19px] text-zinc-200 font-normal max-w-[760px] mx-auto mb-6 sm:mb-7 px-4 leading-[1.5] tracking-normal text-center [text-wrap:balance]">
+          Song chords, piano progressions, guitar tools, and music theory—all in one place.
+        </p>
+
+        {/* Feature Callout Pill */}
+        <div className="flex flex-col items-center mb-8 sm:mb-10 max-w-2xl px-4 text-center">
+          {/* Song Chords & Lyrics Engine Pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-fuchsia-500/10 via-amber-500/10 to-cyan-500/10 border border-white/10 hover:border-white/20 text-zinc-300 text-[11px] sm:text-xs font-medium backdrop-blur-md shadow-lg shadow-black/40 transition-colors flex-wrap justify-center">
             <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fuchsia-400 animate-pulse shrink-0"></span>
-            <span className="tracking-wide">
-              1.5M+ Song Chords<span className="hidden sm:inline"> &amp; Lyrics Engine</span>
+            <span className="tracking-wide text-zinc-200">
+              Song Chords<span className="hidden sm:inline"> &amp; Synced Lyrics</span>
             </span>
             <span className="text-zinc-600">•</span>
-            <span className="text-zinc-300">100% Ad-Free</span>
+            <span className="text-zinc-400">100% Ad-Free</span>
             <span className="text-zinc-600">•</span>
-            <span className="text-amber-300 font-medium">
+            <span className="text-amber-300/90 font-medium">
               <span className="hidden sm:inline">1-Click </span>Transpose
             </span>
           </div>
         </div>
 
         {/* Global Search Bar */}
-        <div id="global-search-bar" className={`mt-2 relative w-full max-w-2xl group ${tutorialStep === 1 ? 'z-[60]' : 'z-50'}`}>
+        <div id="global-search-bar" className={`relative w-full max-w-2xl group ${tutorialStep === 1 ? 'z-[60]' : 'z-50'}`}>
           
           <TutorialTooltip 
             step={1}
@@ -217,8 +226,8 @@ export default function Home() {
             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             className={`absolute inset-0 bg-[linear-gradient(to_right,#4f46e5,#f97316,#d946ef,#4f46e5)] bg-[length:200%_auto] rounded-full blur-xl transition-opacity duration-700 ${tutorialStep === 1 ? 'opacity-80 animate-pulse' : 'opacity-40 group-hover:opacity-70'}`}
           ></motion.div>
-          <div className={`relative bg-black/60 backdrop-blur-md border ${(isSearchFocused || tutorialStep === 1) ? 'border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] z-[60]' : 'border-white/10 shadow-2xl'} rounded-full px-8 py-5 flex items-center gap-4 transition-all duration-500`}>
-            <Sparkles className={`w-6 h-6 shrink-0 transition-colors duration-500 ${isSearchFocused ? 'text-amber-400 animate-pulse' : 'text-zinc-600'}`} />
+          <div className={`relative bg-black/60 backdrop-blur-md border ${(isSearchFocused || tutorialStep === 1) ? 'border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] z-[60]' : 'border-white/10 shadow-2xl'} rounded-full px-5 sm:px-8 py-3.5 sm:py-5 flex items-center gap-2.5 sm:gap-4 transition-all duration-500`}>
+            <Sparkles className={`w-5 h-5 sm:w-6 sm:h-6 shrink-0 transition-colors duration-500 ${isSearchFocused ? 'text-amber-400 animate-pulse' : 'text-zinc-600'}`} />
             <input 
               type="text" 
               value={searchQuery}
@@ -233,17 +242,17 @@ export default function Home() {
                 }
               }}
               placeholder={placeholderText} 
-              className="bg-transparent border-none outline-none flex-1 text-xl text-white placeholder-zinc-400 font-medium tracking-wide"
+              className="bg-transparent border-none outline-none flex-1 min-w-0 text-base sm:text-xl text-white placeholder-zinc-400 font-medium tracking-wide caret-white"
               onFocus={() => setIsSearchFocused(true)}
             />
             {searchQuery ? (
-              <div className="flex gap-1.5">
+              <div className="flex gap-1.5 shrink-0 items-center justify-center">
                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
               </div>
             ) : (
-              <Search className="w-6 h-6 text-zinc-400 shrink-0 cursor-pointer hover:text-white transition-colors" />
+              <Search className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-400 shrink-0 cursor-pointer hover:text-white transition-colors" />
             )}
           </div>
           
@@ -634,7 +643,7 @@ export default function Home() {
                     {[
                       { title: "Piano Sandbox", subtitle: "Interactive builder", href: "/piano#sandbox", icon: <Piano className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />, color: "bg-emerald-500/10 hover:bg-emerald-500/20", borderColor: "border-emerald-500/30", glow: "shadow-[0_0_15px_rgba(16,185,129,0.4)]", isStep3: true },
                       { title: "Guitar Tuner", subtitle: "Chromatic tuner", href: "/guitar#tuner", icon: <Guitar className="w-5 h-5 md:w-6 md:h-6 text-fuchsia-400" />, color: "bg-fuchsia-500/10 hover:bg-fuchsia-500/20", borderColor: "border-fuchsia-500/30", glow: "shadow-[0_0_15px_rgba(217,70,239,0.4)]" },
-                      { title: "Song Chords", subtitle: "1.5M+ Catalog", href: "/#song-chords-engine", icon: <Music className="w-5 h-5 md:w-6 md:h-6 text-orange-400" />, color: "bg-orange-500/10 hover:bg-orange-500/20", borderColor: "border-orange-500/30", glow: "shadow-[0_0_15px_rgba(249,115,22,0.4)]" },
+                      { title: "Song Chords", subtitle: "Chords & Lyrics", href: "/#song-chords-engine", icon: <Music className="w-5 h-5 md:w-6 md:h-6 text-orange-400" />, color: "bg-orange-500/10 hover:bg-orange-500/20", borderColor: "border-orange-500/30", glow: "shadow-[0_0_15px_rgba(249,115,22,0.4)]" },
                       { title: "Theory Library", subtitle: "Knowledge base", href: "/library", icon: <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />, color: "bg-cyan-500/10 hover:bg-cyan-500/20", borderColor: "border-cyan-500/30", glow: "shadow-[0_0_15px_rgba(6,182,212,0.4)]" },
                       { title: "Scale Matrix", subtitle: "Visual explorer", href: "/guitar#fretboard", icon: <Activity className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />, color: "bg-blue-500/10 hover:bg-blue-500/20", borderColor: "border-blue-500/30", glow: "shadow-[0_0_15px_rgba(59,130,246,0.4)]" },
                       { title: "Ear Trainer", subtitle: "Pitch practice", href: "/library?module=module-11&chapter=m11-c1", icon: <AudioLines className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />, color: "bg-indigo-500/10 hover:bg-indigo-500/20", borderColor: "border-indigo-500/30", glow: "shadow-[0_0_15px_rgba(99,102,241,0.4)]" },
@@ -761,7 +770,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-lg text-zinc-500 font-light max-w-xl mx-auto">
-              Instant chord sheets for 1.5M+ songs with synced lyrics, one-click vocal key transposition, and interactive guitar &amp; piano voicings.
+              Instant song chord sheets with synced lyrics, one-click vocal key transposition, and interactive guitar &amp; piano voicings.
             </p>
           </div>
 

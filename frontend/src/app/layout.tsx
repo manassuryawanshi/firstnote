@@ -129,6 +129,19 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              @keyframes cursorBlink {
+                0%, 49.9% { opacity: 1; }
+                50%, 100% { opacity: 0; }
+              }
+              .animate-cursor-blink {
+                animation: cursorBlink 0.75s step-end infinite !important;
+              }
+            `,
+          }}
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black flex flex-col min-h-screen`}>
         <PWARegister />

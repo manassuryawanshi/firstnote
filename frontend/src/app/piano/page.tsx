@@ -2,10 +2,10 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Piano } from "lucide-react";
+import Link from "next/link";
+import { Piano, Guitar, BookOpen, Sparkles, LayoutDashboard, Clapperboard, AudioLines, Layers } from "lucide-react";
 import PianoChordLibrary from "@/components/piano/PianoChordLibrary";
 import PianoProgressionBuilder from "@/components/piano/PianoProgressionBuilder";
-import { BookOpen, Sparkles, LayoutDashboard, Clapperboard, AudioLines, Layers } from "lucide-react";
 import { useTutorial } from "@/context/TutorialContext";
 import TutorialOverlay from "@/components/TutorialOverlay";
 import TutorialTooltip from "@/components/TutorialTooltip";
@@ -24,7 +24,7 @@ const getPseudoRandom = (seed: number) => {
 
 export default function PianoPage() {
   const [injectedProgression, setInjectedProgression] = useState<string[] | null>(null);
-  const [text, setText] = useState("");
+  const [text, setText] = useState("Musicians");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
 
@@ -99,11 +99,33 @@ export default function PianoPage() {
             <span className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#22c55e,#4ade80,#ffffff,#4ade80,#22c55e)] bg-[length:200%_auto] pr-2 drop-shadow-[0_0_15px_rgba(34,197,94,0.8)]" style={{ animation: 'flow 2s linear infinite' }}>
               {text}
             </span>
-            <span className="inline-block w-[6px] h-[0.7em] bg-white animate-pulse rounded-full opacity-80 ml-2 align-baseline"></span>
+            <span 
+              className="inline-block w-[3px] sm:w-[4px] lg:w-[5px] h-[0.82em] bg-white rounded-[1px] ml-1 sm:ml-1.5 align-baseline animate-cursor-blink"
+              style={{ animation: 'cursorBlink 0.75s step-end infinite' }}
+              aria-hidden="true"
+            ></span>
           </h1>
           <p className="text-xl text-zinc-600 dark:text-zinc-400 font-light max-w-2xl mt-4">
             Build chord progressions, search complex fingerings, and instantly export your musical ideas to MIDI.
           </p>
+
+          {/* Contextual navigation bridges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6 text-xs sm:text-sm font-medium">
+            <Link 
+              href="/guitar" 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-400 hover:text-emerald-300 transition-all duration-300 backdrop-blur-md"
+            >
+              <Guitar className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Translate to Guitar Fretboard &rarr;</span>
+            </Link>
+            <Link 
+              href="/library" 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-zinc-400 hover:text-emerald-300 transition-all duration-300 backdrop-blur-md"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Learn Chord Theory &amp; Harmony &rarr;</span>
+            </Link>
+          </div>
         </div>
 
         {/* Tools Grid */}

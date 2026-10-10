@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+import Link from "next/link";
 import { COURSE_DATA } from "@/lib/course-data";
-import { ChevronRight, PlayCircle, Library, Search, BookOpen } from "lucide-react";
+import { ChevronRight, PlayCircle, Library, Search, BookOpen, Piano, Guitar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import CourseKeyboard from "@/components/library/course/CourseKeyboard";
 import { useTutorial } from "@/context/TutorialContext";
@@ -26,7 +27,6 @@ import GenreDeconstructor from "@/components/library/course/GenreDeconstructor";
 import CircleOfFifths from "@/components/library/CircleOfFifths";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 const ROTATING_WORDS = [
   "Composer",
@@ -61,7 +61,7 @@ function CoursePageContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   
-  const [text, setText] = useState("");
+  const [text, setText] = useState("Musician");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
 
@@ -206,11 +206,33 @@ function CoursePageContent() {
             <span className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#06b6d4,#3b82f6,#ffffff,#3b82f6,#06b6d4)] bg-[length:200%_auto] pr-2 drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]" style={{ animation: 'flow 2s linear infinite' }}>
               {text}
             </span>
-            <span className="inline-block w-[6px] h-[0.7em] bg-white animate-pulse rounded-full opacity-80 ml-2 align-baseline"></span>
+            <span 
+              className="inline-block w-[3px] sm:w-[4px] lg:w-[5px] h-[0.82em] bg-white rounded-[1px] ml-1 sm:ml-1.5 align-baseline animate-cursor-blink"
+              style={{ animation: 'cursorBlink 0.75s step-end infinite' }}
+              aria-hidden="true"
+            ></span>
           </h1>
           <p className="text-xl text-zinc-600 dark:text-zinc-400 font-light max-w-2xl mt-4 relative z-10">
             Master the language of music through interactive exploration. Build chords, understand harmony, and decode genres.
           </p>
+
+          {/* Contextual navigation bridges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6 text-xs sm:text-sm font-medium relative z-10">
+            <Link 
+              href="/piano" 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/30 text-zinc-400 hover:text-cyan-300 transition-all duration-300 backdrop-blur-md"
+            >
+              <Piano className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Practice Chords on Piano &rarr;</span>
+            </Link>
+            <Link 
+              href="/guitar" 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/30 text-zinc-400 hover:text-cyan-300 transition-all duration-300 backdrop-blur-md"
+            >
+              <Guitar className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Apply Scales on Guitar &rarr;</span>
+            </Link>
+          </div>
         </div>
 
       </div>
@@ -403,7 +425,23 @@ function CoursePageContent() {
                             </p>
                          </div>
                       )}
-                   </motion.div>
+
+                   {/* Practical Application Bridge */}
+                   <div className="mt-12 pt-8 border-t border-black/10 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                     <div>
+                       <span className="text-xs uppercase tracking-widest text-cyan-400 font-bold block mb-1">Apply This Lesson</span>
+                       <p className="text-sm text-zinc-400">Put these music theory concepts into practice with Chordyn's interactive suites.</p>
+                     </div>
+                     <div className="flex items-center gap-3 shrink-0">
+                       <Link href="/piano" className="px-4 py-2 text-xs font-semibold rounded-xl bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/30 text-zinc-300 hover:text-cyan-300 transition-colors">
+                         Piano Sandbox &rarr;
+                       </Link>
+                       <Link href="/guitar" className="px-4 py-2 text-xs font-semibold rounded-xl bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/30 text-zinc-300 hover:text-cyan-300 transition-colors">
+                         Guitar Fretboard &rarr;
+                       </Link>
+                     </div>
+                   </div>
+                </motion.div>
                 )}
               </div>
            </div>

@@ -13,10 +13,37 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumbsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://chordyn.vercel.app",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Piano Suite",
+      "item": "https://chordyn.vercel.app/piano",
+    },
+  ],
+};
+
 export default function PianoLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }

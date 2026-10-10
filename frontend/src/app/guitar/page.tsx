@@ -2,7 +2,8 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Guitar, Sparkles, Layers, Activity, Music, Flame, Cable } from "lucide-react";
+import Link from "next/link";
+import { Guitar, Piano, BookOpen, Sparkles, Layers, Activity, Music, Flame, Cable } from "lucide-react";
 import GuitarTuner from "@/components/GuitarTuner";
 import GuitarFretboard from "@/components/GuitarFretboard";
 import GuitarProgressionBuilder from "@/components/GuitarProgressionBuilder";
@@ -89,7 +90,7 @@ const BackgroundString = ({ index, thickness }: { index: number, thickness: numb
 };
 
 export default function GuitarPage() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState("Guitarists");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   
@@ -164,11 +165,33 @@ export default function GuitarPage() {
             <span className="italic font-light text-transparent bg-clip-text bg-[linear-gradient(to_right,#d946ef,#f472b6,#ffffff,#f472b6,#d946ef)] bg-[length:200%_auto] pr-2 drop-shadow-[0_0_15px_rgba(217,70,239,0.8)]" style={{ animation: 'flow 2s linear infinite' }}>
               {text}
             </span>
-            <span className="inline-block w-[6px] h-[0.7em] bg-white animate-pulse rounded-full opacity-80 ml-2 align-baseline"></span>
+            <span 
+              className="inline-block w-[3px] sm:w-[4px] lg:w-[5px] h-[0.82em] bg-white rounded-[1px] ml-1 sm:ml-1.5 align-baseline animate-cursor-blink"
+              style={{ animation: 'cursorBlink 0.75s step-end infinite' }}
+              aria-hidden="true"
+            ></span>
           </h1>
           <p className="text-xl text-zinc-600 dark:text-zinc-400 font-light max-w-2xl mt-4">
-            Tune up with precision, map complex fingerings in any alternate tuning, and explore the entire fretboard instantly.
+            Tune your instrument in your browser, map chord fingerings in standard and alternate tunings, and explore fretboard intervals.
           </p>
+
+          {/* Contextual navigation bridges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6 text-xs sm:text-sm font-medium">
+            <Link 
+              href="/piano" 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-fuchsia-500/10 border border-white/10 hover:border-fuchsia-500/30 text-zinc-400 hover:text-fuchsia-300 transition-all duration-300 backdrop-blur-md"
+            >
+              <Piano className="w-3.5 h-3.5 text-fuchsia-400" />
+              <span>Translate to Piano Voicings &rarr;</span>
+            </Link>
+            <Link 
+              href="/library" 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-fuchsia-500/10 border border-white/10 hover:border-fuchsia-500/30 text-zinc-400 hover:text-fuchsia-300 transition-all duration-300 backdrop-blur-md"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-fuchsia-400" />
+              <span>Explore Scales &amp; CAGED Theory &rarr;</span>
+            </Link>
+          </div>
         </div>
 
         {/* Tools Grid */}
@@ -186,7 +209,7 @@ export default function GuitarPage() {
                  <h2 className="text-5xl md:text-6xl font-medium tracking-tight text-zinc-900 dark:text-white mb-4">
                     Live Chromatic Tuner.
                  </h2>
-                 <p className="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl font-light max-w-2xl leading-relaxed">Ensure your instrument is pitch-perfect using our high-precision WebAudio algorithm. Just plug in or use your microphone.</p>
+                 <p className="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl font-light max-w-2xl leading-relaxed">Tune your guitar directly in your browser with live microphone pitch detection for standard and alternate tunings.</p>
               </div>
               <div className="w-full max-w-3xl mx-auto relative z-10">
                  <GuitarTuner />
